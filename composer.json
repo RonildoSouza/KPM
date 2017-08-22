@@ -1,0 +1,12 @@
+{
+    "require": {
+        "slim/slim": "3.0",
+        "doctrine/orm": "^2.5",
+        "monolog/monolog": "^1.17"
+    },
+    "autoload": {
+        "psr-4": {
+            "KPM\\Entities\\": "src/models/entities/"
+        }
+    }
+}
