@@ -30,14 +30,7 @@ class PostIt
      * @var string
      */
     protected $summary;
-
-    /**
-     * @Column(type="integer", nullable=false, options={"unsigned":true})
-     *
-     * @var int
-     */
-    protected $displayOrder;
-
+    
     /**
      * @Column(type="integer", nullable=false, options={"unsigned":true, "default":0})
      *
@@ -196,17 +189,7 @@ class PostIt
     public function setSummary($summary)
     {
         $this->summary = $summary;
-    }
-
-    public function getDisplayOrder()
-    {
-        return $this->displayOrder;
-    }
-
-    public function setDisplayOrder($displayOrder)
-    {
-        $this->displayOrder = $displayOrder;
-    }
+    }    
 
     public function getEstimatedTime()
     {

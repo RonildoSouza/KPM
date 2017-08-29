@@ -37,6 +37,13 @@ class Status
      * @var string
      */
     protected $icon;
+
+    /**
+     * @Column(type="integer", nullable=false, options={"unsigned":true})
+     *
+     * @var int
+     */
+    protected $displayOrder;
     
 
     // ************************************************************
@@ -97,5 +104,15 @@ class Status
     public function setIcon($icon)
     {
         $this->icon = $icon;
+    }
+
+    public function getDisplayOrder()
+    {
+        return $this->displayOrder;
+    }
+
+    public function setDisplayOrder($displayOrder)
+    {
+        $this->displayOrder = $displayOrder;
     }
 }
