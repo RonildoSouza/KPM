@@ -3,7 +3,8 @@
 namespace KPM\Entities;
 
 /**
- * @Entity @Table(name="group_permission")
+ * @Entity 
+ * @Table(name="group_permission")
  */
 class GroupPermission
 {

@@ -4,7 +4,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 namespace KPM\Entities;
 
 /**
- * @Entity @Table(name="project")
+ * @Entity 
+ * @Table(name="project")
  */
 class Project
 {

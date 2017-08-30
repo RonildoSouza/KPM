@@ -3,7 +3,8 @@
 namespace KPM\Entities;
 
 /**
- * @Entity @Table(name="comment")
+ * @Entity 
+ * @Table(name="comment")
  */
 class Comment
 {

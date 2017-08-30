@@ -3,7 +3,8 @@
 namespace KPM\Entities;
 
 /**
- * @Entity @Table(name="user_post_it")
+ * @Entity 
+ * @Table(name="user_post_it")
  */
 class UserPostIt
 {

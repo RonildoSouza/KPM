@@ -4,7 +4,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 namespace KPM\Entities;
 
 /**
- * @Entity @Table(name="category_post_it")
+ * @Entity 
+ * @Table(name="category_post_it")
  */
 class CategoryPostIt
 {
