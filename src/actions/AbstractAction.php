@@ -1,6 +1,8 @@
 <?php
 namespace KPM\Actions;
 
+use \Doctrine\ORM\EntityManager;
+
 abstract class AbstractAction
 {
     /**
@@ -8,13 +10,12 @@ abstract class AbstractAction
      */
     protected $entityManager = null;
 
-    public function __construct(\Doctrine\ORM\EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
     }
 
-    abstract protected function get($id = null);
-    // abstract protected function post($obj);
-    // abstract protected function put($id);
-    // abstract protected function delete($onj);
+    abstract protected function get($id = 0);
+    abstract protected function postOrPut($jsonObj);
+    abstract protected function delete($id);
 }

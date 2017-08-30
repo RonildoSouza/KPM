@@ -6,9 +6,10 @@
     },
     "autoload": {
         "psr-4": {
-            "KPM\\Actions\\": "src/actions/",
-            "KPM\\Controllers\\": "src/controllers/",
-            "KPM\\Entities\\": "src/models/entities/"
+            "KPM\\Actions\\": "./src/actions/",
+            "KPM\\Controllers\\": "./src/controllers/",
+            "KPM\\Entities\\": "./src/models/entities/",
+            "KPM\\Repositories\\": "./src/models/repositories/"
         }
     }
 }

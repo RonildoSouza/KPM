@@ -1,6 +1,6 @@
 <?php
-require('/../actions/CategoryPostItAction.php');
-require('/../controllers/CategoryPostItController.php');
+// require('/../actions/CategoryPostItAction.php');
+// require('/../controllers/CategoryPostItController.php');
 
 // Dependency Container - Slim
 $container = $app->getContainer();

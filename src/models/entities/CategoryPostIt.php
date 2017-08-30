@@ -1,10 +1,11 @@
 <?php
-use Doctrine\Common\Collections\ArrayCollection;
-
 namespace KPM\Entities;
 
+use \Doctrine\Common\Collections\ArrayCollection;
+require(__DIR__ . '/../repositories/CategoryPostItRepository.php');
+
 /**
- * @Entity 
+ * @Entity(repositoryClass="KPM\Repositories\CategoryPostItRepository")
  * @Table(name="category_post_it")
  */
 class CategoryPostIt
