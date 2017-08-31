@@ -18,8 +18,13 @@ $container['logger'] = function ($c) {
     return $logger;
 };
 
-// Actions
+// Controllers
 $container['KPM\Controllers\CategoryPostItController'] = function ($c) {
     $categoryAction = new \KPM\Actions\CategoryPostItAction($c->entityManager);
     return new \KPM\Controllers\CategoryPostItController($categoryAction);
+};
+
+$container['KPM\Controllers\CommentController'] = function ($c) {
+    $commentAction = new \KPM\Actions\CommentAction($c->entityManager);
+    return new \KPM\Controllers\CommentController($commentAction);
 };

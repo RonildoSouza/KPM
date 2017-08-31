@@ -4,7 +4,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 namespace KPM\Entities;
 
 /**
- * @Entity 
+ * @Entity
  * @Table(name="post_it")
  */
 class PostIt
@@ -38,6 +38,20 @@ class PostIt
      * @var int
      */
     protected $estimatedTime;
+
+    /**
+     * @Column(type="datetime", nullable=false)
+     *
+     * @var DateTime
+     */
+    protected $createdAt;
+    
+    /**
+     * @Column(type="datetime", nullable=true)
+     *
+     * @var DateTime
+     */
+    protected $updatedAt;
 
 
     // ************************************************************
@@ -109,7 +123,7 @@ class PostIt
         return $this->category;
     }
  
-    public function setCategory(Category $category)
+    public function setCategory(CategoryPostIt $category)
     {
         $category->addPostIt($this);
         $this->category = $category;
@@ -190,7 +204,7 @@ class PostIt
     public function setSummary($summary)
     {
         $this->summary = $summary;
-    }    
+    }
 
     public function getEstimatedTime()
     {
@@ -200,5 +214,25 @@ class PostIt
     public function setEstimatedTime($estimatedTime)
     {
         $this->estimatedTime = $estimatedTime;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
     }
 }

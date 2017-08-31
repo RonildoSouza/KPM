@@ -3,7 +3,7 @@ namespace  KPM\Controllers;
 
 use \KPM\Actions\CategoryPostItAction;
 
-final class CategoryPostItController
+final class CategoryPostItController implements IController
 {
     /**
      * @var \KPM\Actions\CategoryPostItAction
@@ -11,11 +11,11 @@ final class CategoryPostItController
     private $categoryAction;
 
     /**
-     * Query string param
+     * Array of Query String Params
      *
-     * @var boolean
+     * @var array
      */
-    private $withPostIts = false;
+    private $aQSP = [];
     
     public function __construct(CategoryPostItAction $categoryAction)
     {
@@ -27,7 +27,7 @@ final class CategoryPostItController
         try {
             $this->setValueQueryParams($request);
             
-            $categories = $this->categoryAction->get(0, $this->withPostIts);
+            $categories = $this->categoryAction->get($this->aQSP);
 
             return $response->withJSON($categories, 200)->withHeader('Content-type', 'application/json');
         } catch (Exception $ex) {
@@ -40,7 +40,7 @@ final class CategoryPostItController
         try {
             $this->setValueQueryParams($request);
 
-            $category = $this->categoryAction->get($args['id'], $this->withPostIts);
+            $category = $this->categoryAction->get($this->aQSP, $args['id']);
 
             return $response->withJSON($category, 200)->withHeader('Content-type', 'application/json');
         } catch (Exception $ex) {
@@ -51,11 +51,11 @@ final class CategoryPostItController
     public function insertOrUpdate($request, $response, $args)
     {
         try {
+            $id = array_key_exists('id', $args) ? (int)$args['id'] : 0;
             $jsonObj = $request->getParsedBody();
-            $category = $this->categoryAction->postOrPut($jsonObj);
+            $category = $this->categoryAction->postOrPut($jsonObj, $id);
 
             $statusCode = $request->isPost() ? 201 : 200;
-
             return $response->withJSON($category, $statusCode)->withHeader('Content-type', 'application/json');
         } catch (Exception $ex) {
             return $response->withStatus(400, $ex->getMessage());
@@ -78,8 +78,11 @@ final class CategoryPostItController
     {
         $aQueryString = $request->getQueryParams();
         
-        if ($aQueryString) {
-            $this->withPostIts = (strtolower($aQueryString['withPostIts']) === 'true') ? true : false;
+        if ($aQueryString && array_key_exists('withPostIts', $aQueryString)) {
+            $withPostIts = (strtolower($aQueryString['withPostIts']) === 'true') ? true : false;
+            $this->aQSP = array(
+                'withPostIts' => $withPostIts
+            );
         }
     }
 }

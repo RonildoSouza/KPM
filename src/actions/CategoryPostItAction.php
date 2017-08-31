@@ -16,13 +16,10 @@ class CategoryPostItAction extends AbstractAction
         $this->categoryRepository = $this->entityManager->getRepository('KPM\Entities\CategoryPostIt');
     }
 
-    /**
-     * @param int|null $id
-     *
-     * @return array
-     */
-    public function get($id = 0, $withPostIts = false)
+    public function get($aQSP = [], $id = 0)
     {
+        $withPostIts = array_key_exists('withPostIts', $aQSP) ? $aQSP['withPostIts'] : false;
+
         if ($id === 0) {
             $categories = $this->categoryRepository->getCategories($withPostIts);
             return $categories;
@@ -32,12 +29,12 @@ class CategoryPostItAction extends AbstractAction
         }
     }
     
-    public function postOrPut($jsonObj)
+    public function postOrPut($jsonObj, $id = 0)
     {
         $category = new \KPM\Entities\CategoryPostIt();
 
-        if (array_key_exists('id', $jsonObj) && isset($jsonObj['id'])) {
-            $category = $this->entityManager->find('KPM\Entities\CategoryPostIt', (int)$jsonObj['id']);
+        if ($id !== 0) {
+            $category = $this->entityManager->find('KPM\Entities\CategoryPostIt', $id);
         }
 
         $category->setAcronym($jsonObj['acronym']);

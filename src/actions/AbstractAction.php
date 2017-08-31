@@ -15,7 +15,7 @@ abstract class AbstractAction
         $this->entityManager = $entityManager;
     }
 
-    abstract protected function get($id = 0);
-    abstract protected function postOrPut($jsonObj);
+    abstract protected function get($aQSP = [], $id = 0);
+    abstract protected function postOrPut($jsonObj, $id = 0);
     abstract protected function delete($id);
 }

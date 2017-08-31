@@ -2,8 +2,10 @@
 
 namespace KPM\Entities;
 
+require(__DIR__ . '/../repositories/CommentRepository.php');
+
 /**
- * @Entity 
+ * @Entity(repositoryClass="KPM\Repositories\CommentRepository")
  * @Table(name="comment")
  */
 class Comment
@@ -37,6 +39,20 @@ class Comment
      * @var KPM\Entities\User
      */
     protected $user;
+
+    /**
+     * @Column(type="datetime", nullable=false)
+     *
+     * @var DateTime
+     */
+    protected $createdAt;
+
+    /**
+     * @Column(type="datetime", nullable=true)
+     *
+     * @var DateTime
+     */
+    protected $updatedAt;
 
 
     // ************************************************************
@@ -77,5 +93,25 @@ class Comment
     {
         $user->addComment($this);
         $this->user = $user;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
     }
 }
