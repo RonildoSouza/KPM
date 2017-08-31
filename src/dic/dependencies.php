@@ -28,3 +28,8 @@ $container['KPM\Controllers\CommentController'] = function ($c) {
     $commentAction = new \KPM\Actions\CommentAction($c->entityManager);
     return new \KPM\Controllers\CommentController($commentAction);
 };
+
+$container['KPM\Controllers\PermissionController'] = function ($c) {
+    $permissionAction = new \KPM\Actions\PermissionAction($c->entityManager);
+    return new \KPM\Controllers\PermissionController($permissionAction);
+};

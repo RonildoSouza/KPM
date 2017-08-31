@@ -3,8 +3,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 namespace KPM\Entities;
 
+require(__DIR__ . '/../repositories/PermissionRepository.php');
+
 /**
- * @Entity
+ * @Entity(repositoryClass="KPM\Repositories\PermissionRepository")
  * @Table(name="permission")
  */
 class Permission
