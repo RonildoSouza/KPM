@@ -36,3 +36,8 @@ $container['KPM\Controllers\PriorityController'] = function ($c) {
     $priorityAction = new \KPM\Actions\PriorityAction($c->entityManager);
     return new \KPM\Controllers\PriorityController($priorityAction);
 };
+
+$container['KPM\Controllers\ProjectController'] = function ($c) {
+    $projectAction = new \KPM\Actions\ProjectAction($c->entityManager);
+    return new \KPM\Controllers\ProjectController($projectAction);
+};
