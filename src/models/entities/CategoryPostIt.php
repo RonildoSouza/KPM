@@ -2,7 +2,6 @@
 namespace KPM\Entities;
 
 use \Doctrine\Common\Collections\ArrayCollection;
-require(__DIR__ . '/../repositories/CategoryPostItRepository.php');
 
 /**
  * @Entity(repositoryClass="KPM\Repositories\CategoryPostItRepository")

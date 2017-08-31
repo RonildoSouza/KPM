@@ -1,10 +1,10 @@
 <?php
-use Doctrine\Common\Collections\ArrayCollection;
-
 namespace KPM\Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
- * @Entity 
+ * @Entity(repositoryClass="KPM\Repositories\ProjectRepository")
  * @Table(name="project")
  */
 class Project

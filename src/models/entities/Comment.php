@@ -1,8 +1,5 @@
 <?php
-
 namespace KPM\Entities;
-
-require(__DIR__ . '/../repositories/CommentRepository.php');
 
 /**
  * @Entity(repositoryClass="KPM\Repositories\CommentRepository")

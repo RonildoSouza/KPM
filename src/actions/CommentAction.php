@@ -4,8 +4,6 @@ namespace KPM\Actions;
 use \Doctrine\ORM\EntityManager;
 use \KPM\Actions\AbstractAction;
 
-// require('/../actions/AbstractAction.php');
-
 class CommentAction extends AbstractAction
 {
     private $commentRepository;

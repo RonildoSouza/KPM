@@ -1,9 +1,7 @@
 <?php
-use Doctrine\Common\Collections\ArrayCollection;
-
 namespace KPM\Entities;
 
-require(__DIR__ . '/../repositories/PermissionRepository.php');
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity(repositoryClass="KPM\Repositories\PermissionRepository")
