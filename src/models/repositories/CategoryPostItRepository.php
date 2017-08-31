@@ -6,6 +6,8 @@ use \KPM\Entities\CategoryPostIt;
 
 class CategoryPostItRepository extends EntityRepository
 {
+    use TraitRepository;
+
     public function getCategories($withPostIts = false)
     {
         $dql = "SELECT c FROM KPM\Entities\CategoryPostIt c ORDER BY c.name";
@@ -14,12 +16,7 @@ class CategoryPostItRepository extends EntityRepository
             $dql = "SELECT c, p FROM KPM\Entities\CategoryPostIt c LEFT JOIN c.postIts p ORDER BY c.name";
         }
 
-        $query = $this->getEntityManager()
-                      ->createQuery($dql);
-
-        $categories = $query->getArrayResult();
-        
-        return $categories;
+        return $this->getAll($dql, $this->getEntityManager());
     }
 
     public function getCategoryById($id, $withPostIts = false)
@@ -30,14 +27,6 @@ class CategoryPostItRepository extends EntityRepository
             $dql = "SELECT c, p FROM KPM\Entities\CategoryPostIt c LEFT JOIN c.postIts p WHERE c.id = ?1";
         }
 
-        $query = $this->getEntityManager()
-                      ->createQuery($dql)
-                      ->setParameter(1, $id);        
-
-        $category = $query->getArrayResult();
-
-        // var_dump($query);
-
-        return $category;
+        return $this->getById($dql, $this->getEntityManager(), $id);
     }
 }
