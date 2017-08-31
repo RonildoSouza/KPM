@@ -1,6 +1,4 @@
 <?php
-// require('/../actions/CategoryPostItAction.php');
-// require('/../controllers/CategoryPostItController.php');
 
 // Dependency Container - Slim
 $container = $app->getContainer();
@@ -32,4 +30,9 @@ $container['KPM\Controllers\CommentController'] = function ($c) {
 $container['KPM\Controllers\PermissionController'] = function ($c) {
     $permissionAction = new \KPM\Actions\PermissionAction($c->entityManager);
     return new \KPM\Controllers\PermissionController($permissionAction);
+};
+
+$container['KPM\Controllers\PriorityController'] = function ($c) {
+    $priorityAction = new \KPM\Actions\PriorityAction($c->entityManager);
+    return new \KPM\Controllers\PriorityController($priorityAction);
 };
