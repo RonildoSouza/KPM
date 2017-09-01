@@ -1,12 +1,12 @@
 <?php
 namespace  KPM\Controllers;
 
-use \KPM\Actions\PermissionAction;
+use KPM\Actions\PermissionAction;
 
 final class PermissionController implements IController
 {
     /**
-     * @var \KPM\Actions\PermissionAction
+     * @var KPM\Actions\PermissionAction
      */
     private $permissionAction;
     

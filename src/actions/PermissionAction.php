@@ -1,8 +1,7 @@
 <?php
 namespace KPM\Actions;
 
-use \Doctrine\ORM\EntityManager;
-use \KPM\Actions\AbstractAction;
+use Doctrine\ORM\EntityManager;
 
 class PermissionAction extends AbstractAction
 {
@@ -11,7 +10,7 @@ class PermissionAction extends AbstractAction
     public function __construct(EntityManager $entityManager)
     {
         parent::__construct($entityManager);
-        $this->permissionRepository = $this->entityManager->getRepository('KPM\Entities\Permission');
+        $this->permissionRepository = $this->entityManager->getRepository(PERMISSION_ENTITY_NAME);
     }
 
     public function get($aQSP = [], $id = 0)

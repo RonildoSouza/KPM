@@ -1,12 +1,12 @@
 <?php
 namespace  KPM\Controllers;
 
-use \KPM\Actions\CategoryPostItAction;
+use KPM\Actions\CategoryPostItAction;
 
 final class CategoryPostItController implements IController
 {
     /**
-     * @var \KPM\Actions\CategoryPostItAction
+     * @var KPM\Actions\CategoryPostItAction
      */
     private $categoryAction;
 

@@ -1,8 +1,7 @@
 <?php
 namespace KPM\Actions;
 
-use \Doctrine\ORM\EntityManager;
-use \KPM\Actions\AbstractAction;
+use Doctrine\ORM\EntityManager;
 
 class CategoryPostItAction extends AbstractAction
 {
@@ -11,7 +10,7 @@ class CategoryPostItAction extends AbstractAction
     public function __construct(EntityManager $entityManager)
     {
         parent::__construct($entityManager);
-        $this->categoryRepository = $this->entityManager->getRepository('KPM\Entities\CategoryPostIt');
+        $this->categoryRepository = $this->entityManager->getRepository(CATEGORY_ENTITY_NAME);
     }
 
     public function get($aQSP = [], $id = 0)
@@ -32,7 +31,7 @@ class CategoryPostItAction extends AbstractAction
         $category = new \KPM\Entities\CategoryPostIt();
 
         if ($id !== 0) {
-            $category = $this->entityManager->find('KPM\Entities\CategoryPostIt', $id);
+            $category = $this->entityManager->find(CATEGORY_ENTITY_NAME, $id);
         }
 
         $category->setAcronym($jsonObj['acronym']);
@@ -48,7 +47,7 @@ class CategoryPostItAction extends AbstractAction
     {
         $result = false;
 
-        $category = $this->entityManager->getReference('KPM\Entities\CategoryPostIt', $id);
+        $category = $this->entityManager->getReference(CATEGORY_ENTITY_NAME, $id);
         if ($this->categoryRepository->getCategoryById($id)) {
             $this->entityManager->remove($category);
             $this->entityManager->flush();

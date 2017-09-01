@@ -1,17 +1,16 @@
 <?php
 namespace KPM\Actions;
 
-use \Doctrine\ORM\EntityManager;
-use \KPM\Actions\AbstractAction;
+use Doctrine\ORM\EntityManager;
 
 class ProjectAction extends AbstractAction
 {
-    private $projectRepository;
+    private $projectRepository;    
 
     public function __construct(EntityManager $entityManager)
     {
         parent::__construct($entityManager);
-        $this->projectRepository = $this->entityManager->getRepository('KPM\Entities\Project');
+        $this->projectRepository = $this->entityManager->getRepository(PROJECT_ENTITY_NAME);
     }
 
     public function get($aQSP = [], $id = 0)
@@ -36,17 +35,17 @@ class ProjectAction extends AbstractAction
         $project = new \KPM\Entities\Project();
 
         if ($id !== 0) {
-            $project = $this->entityManager->find('KPM\Entities\Project', $id);
+            $project = $this->entityManager->find(PROJECT_ENTITY_NAME, $id);
             $categories = $project->getCategories();
             $categories->clear();
             foreach ($jsonObj['categories_id'] as $categoryId) {
-                $category = $this->entityManager->find('KPM\Entities\CategoryPostIt', $categoryId);
+                $category = $this->entityManager->find(CATEGORY_ENTITY_NAME, $categoryId);
                 $categories->add($category);
             }
         }
         else{
             foreach ($jsonObj['categories_id'] as $categoryId) {
-                $category = $this->entityManager->find('KPM\Entities\CategoryPostIt', $categoryId);
+                $category = $this->entityManager->find(CATEGORY_ENTITY_NAME, $categoryId);
                 $project->addCategory($category);
             }
         }
@@ -68,7 +67,7 @@ class ProjectAction extends AbstractAction
     {
         $result = false;
 
-        $project = $this->entityManager->getReference('KPM\Entities\Project', $id);
+        $project = $this->entityManager->getReference(PROJECT_ENTITY_NAME, $id);
         if ($this->projectRepository->getProjectById($id)) {
             $this->entityManager->remove($project);
             $this->entityManager->flush();

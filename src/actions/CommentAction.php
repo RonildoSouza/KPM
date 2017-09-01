@@ -1,8 +1,7 @@
 <?php
 namespace KPM\Actions;
 
-use \Doctrine\ORM\EntityManager;
-use \KPM\Actions\AbstractAction;
+use Doctrine\ORM\EntityManager;
 
 class CommentAction extends AbstractAction
 {
@@ -11,7 +10,7 @@ class CommentAction extends AbstractAction
     public function __construct(EntityManager $entityManager)
     {
         parent::__construct($entityManager);
-        $this->commentRepository = $this->entityManager->getRepository('KPM\Entities\Comment');
+        $this->commentRepository = $this->entityManager->getRepository(COMMENT_ENTITY_NAME);
     }
 
     public function get($aQSP = [], $id = 0)
@@ -30,7 +29,7 @@ class CommentAction extends AbstractAction
         $comment = new \KPM\Entities\Comment();
 
         if ($id !== 0) {
-            $comment = $this->entityManager->find('KPM\Entities\Comment', $id);
+            $comment = $this->entityManager->find(COMMENT_ENTITY_NAME, $id);
             $comment->setUpdatedAt(new \DateTime('now'));
         } else {
             $comment->setCreatedAt(new \DateTime('now'));
@@ -60,7 +59,7 @@ class CommentAction extends AbstractAction
     {
         $result = false;
 
-        $comment = $this->entityManager->getReference('KPM\Entities\Comment', $id);
+        $comment = $this->entityManager->getReference(COMMENT_ENTITY_NAME, $id);
         if ($this->commentRepository->getCommentById($id)) {
             $this->entityManager->remove($comment);
             $this->entityManager->flush();

@@ -1,8 +1,7 @@
 <?php
 namespace KPM\Actions;
 
-use \Doctrine\ORM\EntityManager;
-use \KPM\Actions\AbstractAction;
+use Doctrine\ORM\EntityManager;
 
 class PriorityAction extends AbstractAction
 {
@@ -11,7 +10,7 @@ class PriorityAction extends AbstractAction
     public function __construct(EntityManager $entityManager)
     {
         parent::__construct($entityManager);
-        $this->priorityRepository = $this->entityManager->getRepository('KPM\Entities\Priority');
+        $this->priorityRepository = $this->entityManager->getRepository(PRIORITY_ENTITY_NAME);
     }
 
     public function get($aQSP = [], $id = 0)
@@ -32,7 +31,7 @@ class PriorityAction extends AbstractAction
         $priority = new \KPM\Entities\Priority();
 
         if ($id !== 0) {
-            $priority = $this->entityManager->find('KPM\Entities\Priority', $id);
+            $priority = $this->entityManager->find(PRIORITY_ENTITY_NAME, $id);
         }
 
         $priority->setName($jsonObj['name']);
@@ -48,7 +47,7 @@ class PriorityAction extends AbstractAction
     {
         $result = false;
 
-        $priority = $this->entityManager->getReference('KPM\Entities\Priority', $id);
+        $priority = $this->entityManager->getReference(PRIORITY_ENTITY_NAME, $id);
         if ($this->priorityRepository->getPriorityById($id)) {
             $this->entityManager->remove($priority);
             $this->entityManager->flush();

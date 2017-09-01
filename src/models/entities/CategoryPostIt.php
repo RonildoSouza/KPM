@@ -1,7 +1,7 @@
 <?php
 namespace KPM\Entities;
 
-use \Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity(repositoryClass="KPM\Repositories\CategoryPostItRepository")

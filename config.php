@@ -1,7 +1,5 @@
 <?php
 
-define("DEV_MODE", true);
-
 /**
  * Slim Configuration
  */

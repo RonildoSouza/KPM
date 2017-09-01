@@ -1,8 +1,7 @@
 <?php
 namespace KPM\Repositories;
 
-use \Doctrine\ORM\EntityRepository;
-use \KPM\Entities\Project;
+use Doctrine\ORM\EntityRepository;
 
 class ProjectRepository extends EntityRepository
 {
@@ -16,8 +15,8 @@ class ProjectRepository extends EntityRepository
         $slcCATs = $withCategories ? ", c" : "";
         $joinCATs = $withCategories ? " LEFT JOIN p.categories c" : "";
         
-        $dql = "SELECT p" . $slcWPTs . $slcCATs . " FROM KPM\Entities\Project p"
-        . $joinWPTs . $joinCATs . " ORDER BY p.name";
+        $dql = "SELECT p" . $slcWPTs . $slcCATs . " FROM " . PROJECT_ENTITY_NAME . " p"
+            . $joinWPTs . $joinCATs . " ORDER BY p.name";
 
         return $this->getAll($dql, $this->getEntityManager());
     }
@@ -30,8 +29,8 @@ class ProjectRepository extends EntityRepository
         $slcCATs = $withCategories ? ", c" : "";
         $joinCATs = $withCategories ? " LEFT JOIN p.categories c" : "";
         
-        $dql = "SELECT p" . $slcWPTs . $slcCATs . " FROM KPM\Entities\Project p"
-        . $joinWPTs . $joinCATs . " WHERE p.id = ?1";
+        $dql = "SELECT p" . $slcWPTs . $slcCATs . " FROM " . PROJECT_ENTITY_NAME . " p"
+            . $joinWPTs . $joinCATs . " WHERE p.id = ?1";
 
         return $this->getById($dql, $this->getEntityManager(), $id);
     }

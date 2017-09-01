@@ -1,12 +1,12 @@
 <?php
 namespace KPM\Actions;
 
-use \Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManager;
 
 abstract class AbstractAction
 {
     /**
-     * @var \Doctrine\ORM\EntityManager
+     * @var Doctrine\ORM\EntityManager
      */
     protected $entityManager = null;
 

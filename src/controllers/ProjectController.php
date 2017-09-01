@@ -1,12 +1,12 @@
 <?php
 namespace  KPM\Controllers;
 
-use \KPM\Actions\ProjectAction;
+use KPM\Actions\ProjectAction;
 
 final class ProjectController implements IController
 {
     /**
-     * @var \KPM\Actions\ProjectAction
+     * @var KPM\Actions\ProjectAction
      */
     private $projectAction;
 

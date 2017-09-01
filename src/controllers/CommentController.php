@@ -1,12 +1,12 @@
 <?php
 namespace  KPM\Controllers;
 
-use \KPM\Actions\CommentAction;
+use KPM\Actions\CommentAction;
 
 final class CommentController implements IController
 {
     /**
-     * @var \KPM\Actions\CommentAction
+     * @var KPM\Actions\CommentAction
      */
     private $commentAction;
     

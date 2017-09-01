@@ -1,12 +1,12 @@
 <?php
 namespace  KPM\Controllers;
 
-use \KPM\Actions\PriorityAction;
+use KPM\Actions\PriorityAction;
 
 final class PriorityController implements IController
 {
     /**
-     * @var \KPM\Actions\PriorityAction
+     * @var KPM\Actions\PriorityAction
      */
     private $priorityAction;
 
