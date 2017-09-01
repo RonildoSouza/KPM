@@ -41,3 +41,8 @@ $container['KPM\Controllers\ProjectController'] = function ($c) {
     $projectAction = new \KPM\Actions\ProjectAction($c->entityManager);
     return new \KPM\Controllers\ProjectController($projectAction);
 };
+
+$container['KPM\Controllers\StatusController'] = function ($c) {
+    $statusAction = new \KPM\Actions\StatusAction($c->entityManager);
+    return new \KPM\Controllers\StatusController($statusAction);
+};
