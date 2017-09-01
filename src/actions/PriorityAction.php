@@ -5,6 +5,8 @@ use Doctrine\ORM\EntityManager;
 
 class PriorityAction extends AbstractAction
 {
+    use TraitAction;
+
     private $priorityRepository;
 
     public function __construct(EntityManager $entityManager)
@@ -47,10 +49,8 @@ class PriorityAction extends AbstractAction
     {
         $result = false;
 
-        $priority = $this->entityManager->getReference(PRIORITY_ENTITY_NAME, $id);
         if ($this->priorityRepository->getPriorityById($id)) {
-            $this->entityManager->remove($priority);
-            $this->entityManager->flush();
+            $this->remove($id, $this->entityManager, PRIORITY_ENTITY_NAME);
             $result = true;
         }
 

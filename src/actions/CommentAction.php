@@ -5,6 +5,8 @@ use Doctrine\ORM\EntityManager;
 
 class CommentAction extends AbstractAction
 {
+    use TraitAction;
+
     private $commentRepository;
 
     public function __construct(EntityManager $entityManager)
@@ -59,10 +61,8 @@ class CommentAction extends AbstractAction
     {
         $result = false;
 
-        $comment = $this->entityManager->getReference(COMMENT_ENTITY_NAME, $id);
         if ($this->commentRepository->getCommentById($id)) {
-            $this->entityManager->remove($comment);
-            $this->entityManager->flush();
+            $this->remove($id, $this->entityManager, COMMENT_ENTITY_NAME);
             $result = true;
         }
 

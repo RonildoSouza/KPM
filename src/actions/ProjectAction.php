@@ -5,6 +5,8 @@ use Doctrine\ORM\EntityManager;
 
 class ProjectAction extends AbstractAction
 {
+    use TraitAction;
+
     private $projectRepository;    
 
     public function __construct(EntityManager $entityManager)
@@ -67,10 +69,8 @@ class ProjectAction extends AbstractAction
     {
         $result = false;
 
-        $project = $this->entityManager->getReference(PROJECT_ENTITY_NAME, $id);
         if ($this->projectRepository->getProjectById($id)) {
-            $this->entityManager->remove($project);
-            $this->entityManager->flush();
+            $this->remove($id, $this->entityManager, PROJECT_ENTITY_NAME);
             $result = true;
         }
 

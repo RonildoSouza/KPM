@@ -5,6 +5,8 @@ use Doctrine\ORM\EntityManager;
 
 class CategoryPostItAction extends AbstractAction
 {
+    use TraitAction;
+
     private $categoryRepository;
 
     public function __construct(EntityManager $entityManager)
@@ -47,10 +49,8 @@ class CategoryPostItAction extends AbstractAction
     {
         $result = false;
 
-        $category = $this->entityManager->getReference(CATEGORY_ENTITY_NAME, $id);
         if ($this->categoryRepository->getCategoryById($id)) {
-            $this->entityManager->remove($category);
-            $this->entityManager->flush();
+            $this->remove($id, $this->entityManager, CATEGORY_ENTITY_NAME);
             $result = true;
         }
 
