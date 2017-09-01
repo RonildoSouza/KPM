@@ -55,7 +55,8 @@ class ProjectAction extends AbstractAction
         $project->setName($jsonObj['name']);
         $project->setColor($jsonObj['color']);
         $project->setStartDate(new \DateTime($jsonObj['startDate']));
-        $project->setEndDate(new \DateTime($jsonObj['endDate']));        
+        $project->setEndDate(new \DateTime($jsonObj['endDate']));
+        $project->setStatus((int)$jsonObj['status']);
     
         $this->entityManager->persist($project);
         $this->entityManager->flush();

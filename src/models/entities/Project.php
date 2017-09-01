@@ -52,6 +52,13 @@ class Project
      * @var DateTime
      */
     protected $endDate;
+
+    /**
+     * @Column(type="integer", nullable=false, options={"unsigned":true, "default":10})
+     *
+     * @var int
+     */
+    protected $status;
     
     
     // ************************************************************
@@ -149,5 +156,15 @@ class Project
     public function setEndDate($endDate)
     {
         $this->endDate = $endDate;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 }
