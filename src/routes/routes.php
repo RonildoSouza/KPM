@@ -12,3 +12,7 @@ require_once(__DIR__ . '/priority.php');
 require_once(__DIR__ . '/project.php');
 
 require_once(__DIR__ . '/status.php');
+
+require_once(__DIR__ . '/user.php');
+
+require_once(__DIR__ . '/user-group.php');

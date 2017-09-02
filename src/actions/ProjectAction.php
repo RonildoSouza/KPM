@@ -32,8 +32,6 @@ class ProjectAction extends AbstractAction
     public function postOrPut($jsonObj, $id = 0)
     {
         $categories = null;
-        $newCategories = null;
-        $removeCategories = null;
         $project = new \KPM\Entities\Project();
 
         if ($id !== 0) {

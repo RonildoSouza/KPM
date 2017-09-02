@@ -4,7 +4,7 @@ namespace KPM\Entities;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @Entity 
+ * @Entity(repositoryClass="KPM\Repositories\UserGroupRepository")
  * @Table(name="user_group")
  */
 class UserGroup

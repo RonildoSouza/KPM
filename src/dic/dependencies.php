@@ -46,3 +46,13 @@ $container['KPM\Controllers\StatusController'] = function ($c) {
     $statusAction = new \KPM\Actions\StatusAction($c->entityManager);
     return new \KPM\Controllers\StatusController($statusAction);
 };
+
+$container['KPM\Controllers\UserController'] = function ($c) {
+    $userAction = new \KPM\Actions\UserAction($c->entityManager);
+    return new \KPM\Controllers\UserController($userAction);
+};
+
+$container['KPM\Controllers\UserGroupController'] = function ($c) {
+    $userGroupAction = new \KPM\Actions\UserGroupAction($c->entityManager);
+    return new \KPM\Controllers\UserGroupController($userGroupAction);
+};
