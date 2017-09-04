@@ -31,12 +31,32 @@ class UserGroupAction extends AbstractAction
     public function postOrPut($jsonObj, $id = 0)
     {
         $userGroup = new \KPM\Entities\UserGroup();
-        $permission = null;
-        $groupPermission = null;
 
         if ($id !== 0) {
             $userGroup = $this->entityManager->find(USERGROUP_ENTITY_NAME, $id);
         }
+        else{
+            foreach ($jsonObj['permissions'] as $permis) {
+                $permission = $this->entityManager->find(PERMISSION_ENTITY_NAME, (int)$permis['id']);
+
+                $groupPermission = new \KPM\Entities\GroupPermission();
+                $groupPermission->setPermission($permission);
+                $groupPermission->setIsAllowed((bool)$permis['isAllowed']);
+                $groupPermission->setUserGroup($userGroup);
+
+                // $userGroup->addGroupPermission($groupPermission);
+            }
+        }        
+
+        /*
+            {
+                "name": "New User Group",
+                "permissions": [
+                    {"id": 1, "isAllowed": true},
+                    {"id": 3, "isAllowed": false}
+                ]
+            }
+        */
 
         $userGroup->setName($jsonObj['name']);
     

@@ -13,7 +13,7 @@ class UserGroupRepository extends EntityRepository
         $joinWURs = $withUsers ? " LEFT JOIN ug.users u" : "";
         
         $dql = "SELECT ug, gp, p" . $slcWURs . " FROM " . USERGROUP_ENTITY_NAME
-            . " ug LEFT JOIN ug.groupPermissions gp JOIN gp.permission p " . $joinWURs . " ORDER BY ug.name";
+            . " ug LEFT JOIN ug.groupPermissions gp LEFT JOIN gp.permission p " . $joinWURs . " ORDER BY ug.name";
 
         return $this->getAll($dql, $this->getEntityManager());
     }
@@ -24,7 +24,7 @@ class UserGroupRepository extends EntityRepository
         $joinWURs = $withUsers ? " LEFT JOIN ug.users u" : "";
 
         $dql = "SELECT ug, gp, p" . $slcWURs . " FROM " . USERGROUP_ENTITY_NAME
-            . " ug LEFT JOIN ug.groupPermissions gp JOIN gp.permission p " . $joinWURs . " WHERE ug.id = ?1";
+            . " ug LEFT JOIN ug.groupPermissions gp LEFT JOIN gp.permission p " . $joinWURs . " WHERE ug.id = ?1";
 
         return $this->getById($dql, $this->getEntityManager(), $id);
     }

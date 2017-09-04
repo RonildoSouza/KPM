@@ -42,7 +42,7 @@ class UserGroup
     }
 
     /**
-     * @OneToMany(targetEntity="GroupPermission", mappedBy="userGroup")
+     * @OneToMany(targetEntity="GroupPermission", mappedBy="userGroup", cascade={"persist"})
      *
      * @var GroupPermission[] An ArrayCollection of GroupPermission objects.
      **/
