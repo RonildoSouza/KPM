@@ -18,6 +18,7 @@ class GroupPermission
 
     /**
      * @ManyToOne(targetEntity="Permission", inversedBy="groupPermissions")
+     * @JoinColumn(name="permission_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\Permission
      */
@@ -25,6 +26,7 @@ class GroupPermission
 
     /**
      * @ManyToOne(targetEntity="UserGroup", inversedBy="groupPermissions")
+     * @JoinColumn(name="userGroup_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\UserGroup
      */
@@ -64,7 +66,7 @@ class GroupPermission
 
     public function setUserGroup(UserGroup $userGroup)
     {
-        $userGroup->addGroupPermission($this);
+        // $userGroup->addGroupPermission($this);
         $this->userGroup = $userGroup;
     }
 

@@ -42,17 +42,32 @@ class UserGroup
     }
 
     /**
-     * @OneToMany(targetEntity="GroupPermission", mappedBy="userGroup", cascade={"persist"})
+     * @OneToMany(targetEntity="GroupPermission", mappedBy="userGroup", cascade={"persist", "remove", "refresh"}, orphanRemoval=true)
      *
      * @var GroupPermission[] An ArrayCollection of GroupPermission objects.
      **/
-    protected $groupPermissions;
+    protected $groupPermissions = [];
      
-    public function addGroupPermission(GroupPermission $groupPermission)
+    // public function addGroupPermission(GroupPermission $groupPermission)
+    // {
+    //     $this->groupPermissions[] = $groupPermission;
+    // }
+
+    public function addGroupPermission(Permission $permission, $isAllowed)
     {
-        $this->groupPermissions[] = $groupPermission;
+        $groupPermission = new \KPM\Entities\GroupPermission();
+        $groupPermission->setPermission($permission);
+        $groupPermission->setIsAllowed($isAllowed);
+        $groupPermission->setUserGroup($this);
+
+        $this->groupPermissions->add($groupPermission);
     }
-     
+
+    public function getGroupPermissions()
+    {
+        return $this->groupPermissions;
+    }
+
      
     public function __construct()
     {

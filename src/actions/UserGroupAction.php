@@ -30,35 +30,22 @@ class UserGroupAction extends AbstractAction
     
     public function postOrPut($jsonObj, $id = 0)
     {
-        $userGroup = new \KPM\Entities\UserGroup();
+        $userGroup = new \KPM\Entities\UserGroup();               
 
         if ($id !== 0) {
-            $userGroup = $this->entityManager->find(USERGROUP_ENTITY_NAME, $id);
+            $userGroup = $this->entityManager->find(USERGROUP_ENTITY_NAME, $id);            
+            $groupPermissions = $userGroup->getGroupPermissions();
+            $groupPermissions->clear();
         }
-        else{
-            foreach ($jsonObj['permissions'] as $permis) {
-                $permission = $this->entityManager->find(PERMISSION_ENTITY_NAME, (int)$permis['id']);
 
-                $groupPermission = new \KPM\Entities\GroupPermission();
-                $groupPermission->setPermission($permission);
-                $groupPermission->setIsAllowed((bool)$permis['isAllowed']);
-                $groupPermission->setUserGroup($userGroup);
-
-                // $userGroup->addGroupPermission($groupPermission);
-            }
-        }        
-
-        /*
-            {
-                "name": "New User Group",
-                "permissions": [
-                    {"id": 1, "isAllowed": true},
-                    {"id": 3, "isAllowed": false}
-                ]
-            }
-        */
+        foreach ($jsonObj['permissions'] as $p) {
+            $permission = $this->entityManager->find(PERMISSION_ENTITY_NAME, (int)$p['id']);            
+            $userGroup->addGroupPermission($permission, (bool)$p['isAllowed']);
+        }
 
         $userGroup->setName($jsonObj['name']);
+
+        // \Doctrine\Common\Util\Debug::dump($userGroup->getGroupPermissions());
     
         $this->entityManager->persist($userGroup);
         $this->entityManager->flush();
