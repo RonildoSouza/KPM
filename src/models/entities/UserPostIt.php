@@ -18,6 +18,7 @@ class UserPostIt
 
     /**
      * @ManyToOne(targetEntity="User", inversedBy="userPostIts")
+     * @JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\User
      */
@@ -25,6 +26,7 @@ class UserPostIt
 
     /**
      * @ManyToOne(targetEntity="PostIt", inversedBy="userPostIts")
+     * @JoinColumn(name="postIt_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\PostIt
      */

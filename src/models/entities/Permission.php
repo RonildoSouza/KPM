@@ -30,7 +30,7 @@ class Permission
     // RELATIONSHIP
 
     /**
-     * @OneToMany(targetEntity="GroupPermission", mappedBy="userGroup", cascade={"persist"})
+     * @OneToMany(targetEntity="GroupPermission", mappedBy="userGroup", cascade={"persist", "remove", "refresh"})
      *
      * @var GroupPermission[] An ArrayCollection of GroupPermission objects.
      **/

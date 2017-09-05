@@ -69,6 +69,7 @@ class User
 
     /**
      * @ManyToOne(targetEntity="UserGroup", inversedBy="users")
+     * @JoinColumn(name="userGroup_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\UserGroup
      **/

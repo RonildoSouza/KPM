@@ -25,6 +25,7 @@ class Comment
 
     /**
      * @ManyToOne(targetEntity="PostIt", inversedBy="userPostIts")
+     * @JoinColumn(name="postIt_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\PostIt
      */
@@ -32,6 +33,7 @@ class Comment
 
     /**
      * @ManyToOne(targetEntity="User", inversedBy="comments")
+     * @JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\User
      */
