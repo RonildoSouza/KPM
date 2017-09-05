@@ -32,6 +32,11 @@ $container['KPM\Controllers\PermissionController'] = function ($c) {
     return new \KPM\Controllers\PermissionController($permissionAction);
 };
 
+$container['KPM\Controllers\PostItController'] = function ($c) {
+    $postItAction = new \KPM\Actions\PostItAction($c->entityManager);
+    return new \KPM\Controllers\PostItController($postItAction);
+};
+
 $container['KPM\Controllers\PriorityController'] = function ($c) {
     $priorityAction = new \KPM\Actions\PriorityAction($c->entityManager);
     return new \KPM\Controllers\PriorityController($priorityAction);

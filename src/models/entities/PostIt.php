@@ -4,7 +4,7 @@ namespace KPM\Entities;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @Entity
+ * @Entity(repositoryClass="KPM\Repositories\PostItRepository")
  * @Table(name="post_it")
  */
 class PostIt
@@ -59,6 +59,7 @@ class PostIt
 
     /**
      * @ManyToOne(targetEntity="Status", inversedBy="postIts")
+     * @JoinColumn(name="status_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\Status
      **/
@@ -77,6 +78,7 @@ class PostIt
 
     /**
      * @ManyToOne(targetEntity="Priority", inversedBy="postIts")
+     * @JoinColumn(name="priority_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\Priority
      **/
@@ -95,6 +97,7 @@ class PostIt
 
     /**
      * @ManyToOne(targetEntity="Project", inversedBy="postIts")
+     * @JoinColumn(name="project_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\Project
      **/
@@ -113,6 +116,7 @@ class PostIt
 
     /**
      * @ManyToOne(targetEntity="CategoryPostIt", inversedBy="postIts")
+     * @JoinColumn(name="category_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\CategoryPostIt
      **/

@@ -9,7 +9,7 @@ class UserGroupRepository extends EntityRepository
     
     public function getUserGroups($withUsers = false)
     {
-        $slcWURs = $withUsers ? ", u" : "";
+        $slcWURs = $withUsers ? ", partial u.{id, name}" : "";
         $joinWURs = $withUsers ? " LEFT JOIN ug.users u" : "";
         
         $dql = "SELECT ug, gp, p" . $slcWURs . " FROM " . USERGROUP_ENTITY_NAME
@@ -20,7 +20,7 @@ class UserGroupRepository extends EntityRepository
 
     public function getUserGroupById($id, $withUsers = false)
     {
-        $slcWURs = $withUsers ? ", u" : "";
+        $slcWURs = $withUsers ? ", partial u.{id, name}" : "";
         $joinWURs = $withUsers ? " LEFT JOIN ug.users u" : "";
 
         $dql = "SELECT ug, gp, p" . $slcWURs . " FROM " . USERGROUP_ENTITY_NAME
