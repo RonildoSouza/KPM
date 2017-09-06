@@ -17,16 +17,16 @@ class UserAction extends AbstractAction
 
     public function get($aQSP = [], $id = 0)
     {
-        $withPostIts = array_key_exists('withPostIts', $aQSP) ? $aQSP['withPostIts'] : false;
-        $withComments = array_key_exists('withComments', $aQSP) ? $aQSP['withComments'] : false;
+        $withPostIts = array_key_exists(KEY_WITH_POSTITS, $aQSP) ? $aQSP[KEY_WITH_POSTITS] : false;
+        $withComments = array_key_exists(KEY_WITH_COMMENTS, $aQSP) ? $aQSP[KEY_WITH_COMMENTS] : false;
 
         if ($id === 0) {
             $users = $this->userRepository->getUsers($withPostIts, $withComments);
-            return $users;
         } else {
-            $user = $this->userRepository->getUserById($id, $withPostIts, $withComments);
-            return $user;
+            $users = $this->userRepository->getUserById($id, $withPostIts, $withComments);
         }
+
+        return $this->objectIsNull($users);
     }
 
     public function postOrPut($jsonObj, $id = 0)
@@ -51,13 +51,7 @@ class UserAction extends AbstractAction
 
     public function delete($id)
     {
-        $result = false;
-
-        if ($this->userRepository->getUserById($id)) {
-            $this->remove($id, $this->entityManager, USER_ENTITY_NAME);
-            $result = true;
-        }
-
-        return $result;
+        $objectExist = $this->userRepository->getUserById($id);
+        return $this->remove($id, $this->entityManager, USER_ENTITY_NAME, $objectExist);
     }
 }

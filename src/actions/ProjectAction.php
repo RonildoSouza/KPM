@@ -7,7 +7,7 @@ class ProjectAction extends AbstractAction
 {
     use TraitAction;
 
-    private $projectRepository;    
+    private $projectRepository;
 
     public function __construct(EntityManager $entityManager)
     {
@@ -17,16 +17,16 @@ class ProjectAction extends AbstractAction
 
     public function get($aQSP = [], $id = 0)
     {
-        $withPostIts = array_key_exists('withPostIts', $aQSP) ? $aQSP['withPostIts'] : false;
-        $withCategories = array_key_exists('withCategories', $aQSP) ? $aQSP['withCategories'] : false;
+        $withPostIts = array_key_exists(KEY_WITH_POSTITS, $aQSP) ? $aQSP[KEY_WITH_POSTITS] : false;
+        $withCategories = array_key_exists(KEY_WITH_CATEGORIES, $aQSP) ? $aQSP[KEY_WITH_CATEGORIES] : false;
 
         if ($id === 0) {
             $projects = $this->projectRepository->getProjects($withPostIts, $withCategories);
-            return $projects;
         } else {
-            $project = $this->projectRepository->getProjectById($id, $withPostIts, $withCategories);
-            return $project;
+            $projects = $this->projectRepository->getProjectById($id, $withPostIts, $withCategories);
         }
+
+        return $this->objectIsNull($projects);
     }
 
     public function postOrPut($jsonObj, $id = 0)
@@ -42,8 +42,7 @@ class ProjectAction extends AbstractAction
                 $category = $this->entityManager->find(CATEGORY_ENTITY_NAME, $categoryId);
                 $categories->add($category);
             }
-        }
-        else{
+        } else {
             foreach ($jsonObj['categories_id'] as $categoryId) {
                 $category = $this->entityManager->find(CATEGORY_ENTITY_NAME, $categoryId);
                 $project->addCategory($category);
@@ -65,13 +64,7 @@ class ProjectAction extends AbstractAction
 
     public function delete($id)
     {
-        $result = false;
-
-        if ($this->projectRepository->getProjectById($id)) {
-            $this->remove($id, $this->entityManager, PROJECT_ENTITY_NAME);
-            $result = true;
-        }
-
-        return $result;
+        $objectExist = $this->projectRepository->getProjectById($id);
+        return $this->remove($id, $this->entityManager, PROJECT_ENTITY_NAME, $objectExist);
     }
 }

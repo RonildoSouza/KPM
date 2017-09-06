@@ -17,30 +17,44 @@ class UserGroupAction extends AbstractAction
 
     public function get($aQSP = [], $id = 0)
     {
-        $withUsers = array_key_exists('withUsers', $aQSP) ? $aQSP['withUsers'] : false;
+        $withUsers = array_key_exists(KEY_WITH_USERS, $aQSP) ? $aQSP[KEY_WITH_USERS] : false;
 
         if ($id === 0) {
             $userGroups = $this->userGroupRepository->getUserGroups($withUsers);
-            return $userGroups;
         } else {
-            $userGroup = $this->userGroupRepository->getUserGroupById($id, $withUsers);
-            return $userGroup;
+            $userGroups = $this->userGroupRepository->getUserGroupById($id, $withUsers);
         }
+
+        return $this->objectIsNull($userGroups);
     }
     
     public function postOrPut($jsonObj, $id = 0)
     {
-        $userGroup = new \KPM\Entities\UserGroup();               
+        $userGroup = new \KPM\Entities\UserGroup();
+        $groupPermissions = null;
 
         if ($id !== 0) {
-            $userGroup = $this->entityManager->find(USERGROUP_ENTITY_NAME, $id);            
+            $userGroup = $this->entityManager->find(USERGROUP_ENTITY_NAME, $id);
             $groupPermissions = $userGroup->getGroupPermissions();
-            $groupPermissions->clear();
         }
 
         foreach ($jsonObj['permissions'] as $p) {
-            $permission = $this->entityManager->find(PERMISSION_ENTITY_NAME, (int)$p['id']);            
-            $userGroup->addGroupPermission($permission, (bool)$p['isAllowed']);
+            $permissionExist = false;
+            $permission = $this->entityManager->find(PERMISSION_ENTITY_NAME, (int)$p['id']);
+            
+            if ($groupPermissions) {
+                foreach ($groupPermissions as $gp) {
+                    if ($gp->getPermission()->getId() === $permission->getId()) {
+                        $gp->setIsAllowed((bool)$p['isAllowed']);
+                        $permissionExist = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!$permissionExist) {
+                $userGroup->addGroupPermission($permission, (bool)$p['isAllowed']);
+            }
         }
 
         $userGroup->setName($jsonObj['name']);
@@ -55,13 +69,7 @@ class UserGroupAction extends AbstractAction
 
     public function delete($id)
     {
-        $result = false;
-
-        if ($this->userGroupRepository->getUserGroupById($id)) {
-            $this->remove($id, $this->entityManager, USERGROUP_ENTITY_NAME);
-            $result = true;
-        }
-
-        return $result;
+        $objectExist = $this->userGroupRepository->getUserGroupById($id);
+        return $this->remove($id, $this->entityManager, USERGROUP_ENTITY_NAME, $objectExist);
     }
 }

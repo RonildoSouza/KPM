@@ -17,15 +17,15 @@ class CategoryPostItAction extends AbstractAction
 
     public function get($aQSP = [], $id = 0)
     {
-        $withPostIts = array_key_exists('withPostIts', $aQSP) ? $aQSP['withPostIts'] : false;
+        $withPostIts = array_key_exists(KEY_WITH_POSTITS, $aQSP) ? $aQSP[KEY_WITH_POSTITS] : false;
 
         if ($id === 0) {
             $categories = $this->categoryRepository->getCategories($withPostIts);
-            return $categories;
         } else {
-            $category = $this->categoryRepository->getCategoryById($id, $withPostIts);
-            return $category;
+            $categories = $this->categoryRepository->getCategoryById($id, $withPostIts);
         }
+
+        return $this->objectIsNull($categories);
     }
     
     public function postOrPut($jsonObj, $id = 0)
@@ -47,13 +47,7 @@ class CategoryPostItAction extends AbstractAction
 
     public function delete($id)
     {
-        $result = false;
-
-        if ($this->categoryRepository->getCategoryById($id)) {
-            $this->remove($id, $this->entityManager, CATEGORY_ENTITY_NAME);
-            $result = true;
-        }
-
-        return $result;
+        $objectExist = $this->categoryRepository->getCategoryById($id);
+        return $this->remove($id, $this->entityManager, CATEGORY_ENTITY_NAME, $objectExist);
     }
 }

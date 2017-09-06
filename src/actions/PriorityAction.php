@@ -17,15 +17,15 @@ class PriorityAction extends AbstractAction
 
     public function get($aQSP = [], $id = 0)
     {
-        $withPostIts = array_key_exists('withPostIts', $aQSP) ? $aQSP['withPostIts'] : false;
+        $withPostIts = array_key_exists(KEY_WITH_POSTITS, $aQSP) ? $aQSP[KEY_WITH_POSTITS] : false;
 
         if ($id === 0) {
             $priorities = $this->priorityRepository->getPriorities($withPostIts);
-            return $priorities;
         } else {
-            $priority = $this->priorityRepository->getPriorityById($id, $withPostIts);
-            return $priority;
-        }
+            $priorities = $this->priorityRepository->getPriorityById($id, $withPostIts);
+        }      
+        
+        return $this->objectIsNull($priorities);
     }
     
     public function postOrPut($jsonObj, $id = 0)
@@ -47,13 +47,7 @@ class PriorityAction extends AbstractAction
 
     public function delete($id)
     {
-        $result = false;
-
-        if ($this->priorityRepository->getPriorityById($id)) {
-            $this->remove($id, $this->entityManager, PRIORITY_ENTITY_NAME);
-            $result = true;
-        }
-
-        return $result;
+        $objectExist = $this->priorityRepository->getPriorityById($id);
+        return $this->remove($id, $this->entityManager, PRIORITY_ENTITY_NAME, $objectExist);
     }
 }

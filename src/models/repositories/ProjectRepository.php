@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityRepository;
 class ProjectRepository extends EntityRepository
 {
     use TraitRepository;
+
+    private $strFormat = "SELECT p %s %s FROM %s p %s %s %s";
     
     public function getProjects($withPostIts = false, $withCategories = false)
     {
@@ -14,9 +16,8 @@ class ProjectRepository extends EntityRepository
 
         $slcCATs = $withCategories ? ", c" : "";
         $joinCATs = $withCategories ? " LEFT JOIN p.categories c" : "";
-        
-        $dql = "SELECT p" . $slcWPTs . $slcCATs . " FROM " . PROJECT_ENTITY_NAME . " p"
-            . $joinWPTs . $joinCATs . " ORDER BY p.name";
+
+        $dql = sprintf($this->strFormat, $slcWPTs, $slcCATs, PROJECT_ENTITY_NAME, $joinWPTs, $joinCATs, "ORDER BY p.name");
 
         return $this->getAll($dql, $this->getEntityManager());
     }
@@ -28,9 +29,8 @@ class ProjectRepository extends EntityRepository
 
         $slcCATs = $withCategories ? ", c" : "";
         $joinCATs = $withCategories ? " LEFT JOIN p.categories c" : "";
-        
-        $dql = "SELECT p" . $slcWPTs . $slcCATs . " FROM " . PROJECT_ENTITY_NAME . " p"
-            . $joinWPTs . $joinCATs . " WHERE p.id = ?1";
+
+        $dql = sprintf($this->strFormat, $slcWPTs, $slcCATs, PROJECT_ENTITY_NAME, $joinWPTs, $joinCATs, "WHERE p.id = ?1");
 
         return $this->getById($dql, $this->getEntityManager(), $id);
     }

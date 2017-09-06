@@ -6,14 +6,15 @@ use Doctrine\ORM\EntityRepository;
 class StatusRepository extends EntityRepository
 {
     use TraitRepository;
+
+    private $strFormat = "SELECT s %s FROM %s s %s %s";
     
     public function getStatus($withPostIts = false)
     {
         $slcWPTs = $withPostIts ? ", pt" : "";
         $joinWPTs = $withPostIts ? " LEFT JOIN s.postIts pt" : "";
-        
-        $dql = "SELECT s" . $slcWPTs . " FROM " . STATUS_ENTITY_NAME . " s"
-            . $joinWPTs . " ORDER BY s.name";
+
+        $dql = sprintf($this->strFormat, $slcWPTs, STATUS_ENTITY_NAME, $joinWPTs, "ORDER BY s.name");
 
         return $this->getAll($dql, $this->getEntityManager());
     }
@@ -22,9 +23,8 @@ class StatusRepository extends EntityRepository
     {
         $slcWPTs = $withPostIts ? ", pt" : "";
         $joinWPTs = $withPostIts ? " LEFT JOIN s.postIts pt" : "";
-        
-        $dql = "SELECT s" . $slcWPTs . " FROM " . STATUS_ENTITY_NAME . " s"
-            . $joinWPTs . " WHERE s.id = ?1";
+
+        $dql = sprintf($this->strFormat, $slcWPTs, STATUS_ENTITY_NAME, $joinWPTs, "WHERE s.id = ?1");
 
         return $this->getById($dql, $this->getEntityManager(), $id);
     }

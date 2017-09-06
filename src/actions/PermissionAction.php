@@ -5,6 +5,8 @@ use Doctrine\ORM\EntityManager;
 
 class PermissionAction extends AbstractAction
 {
+    use TraitAction;
+    
     private $permissionRepository;
 
     public function __construct(EntityManager $entityManager)
@@ -17,14 +19,20 @@ class PermissionAction extends AbstractAction
     {
         if ($id === 0) {
             $permissions = $this->permissionRepository->getPermissions();
-            return $permissions;
         } else {
-            $comment = $this->permissionRepository->getPermissionById($id);
-            return $comment;
+            $permissions = $this->permissionRepository->getPermissionById($id);
         }
+        
+        return $this->objectIsNull($permissions);
     }
     
-    public function postOrPut($jsonObj, $id = 0){}
+    public function postOrPut($jsonObj, $id = 0)
+    {
+        throw new \Exception('Not implemented!');
+    }
 
-    public function delete($id){}
+    public function delete($id)
+    {
+        throw new \Exception('Not implemented!');
+    }
 }

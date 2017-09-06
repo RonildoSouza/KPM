@@ -17,7 +17,7 @@ class StatusAction extends AbstractAction
 
     public function get($aQSP = [], $id = 0)
     {
-        $withPostIts = array_key_exists('withPostIts', $aQSP) ? $aQSP['withPostIts'] : false;
+        $withPostIts = array_key_exists(KEY_WITH_POSTITS, $aQSP) ? $aQSP[KEY_WITH_POSTITS] : false;
 
         if ($id === 0) {
             $status = $this->statusRepository->getStatus($withPostIts);
@@ -25,7 +25,7 @@ class StatusAction extends AbstractAction
             $status = $this->statusRepository->getStatusById($id, $withPostIts);
         }
 
-        return $status;
+        return $this->objectIsNull($status);
     }
     
     public function postOrPut($jsonObj, $id = 0)
@@ -49,13 +49,7 @@ class StatusAction extends AbstractAction
 
     public function delete($id)
     {
-        $result = false;
-
-        if ($this->statusRepository->getStatusById($id)) {
-            $this->remove($id, $this->entityManager, STATUS_ENTITY_NAME);
-            $result = true;
-        }
-
-        return $result;
+        $objectExist = $this->statusRepository->getStatusById($id);
+        return $this->remove($id, $this->entityManager, STATUS_ENTITY_NAME, $objectExist);
     }
 }

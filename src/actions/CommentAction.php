@@ -19,11 +19,11 @@ class CommentAction extends AbstractAction
     {
         if ($id === 0) {
             $comments = $this->commentRepository->getComments();
-            return $comments;
         } else {
-            $comment = $this->commentRepository->getCommentById($id);
-            return $comment;
+            $comments = $this->commentRepository->getCommentById($id);
         }
+
+        return $this->objectIsNull($comments);
     }
     
     public function postOrPut($jsonObj, $id = 0)
@@ -39,12 +39,12 @@ class CommentAction extends AbstractAction
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (array_key_exists('user_id', $jsonObj)) {
-                $user = $this->entityManager->find('KPM\Entities\User', (int)$jsonObj['user_id']);
+                $user = $this->entityManager->find(USER_ENTITY_NAME, (int)$jsonObj['user_id']);
                 $comment->setUser($user);
             }
     
             if (array_key_exists('postit_id', $jsonObj)) {
-                $postIt = $this->entityManager->find('KPM\Entities\PostIt', (int)$jsonObj['postit_id']);
+                $postIt = $this->entityManager->find(POSTIT_ENTITY_NAME, (int)$jsonObj['postit_id']);
                 $comment->setPostIt($postIt);
             }
         }
@@ -59,13 +59,7 @@ class CommentAction extends AbstractAction
 
     public function delete($id)
     {
-        $result = false;
-
-        if ($this->commentRepository->getCommentById($id)) {
-            $this->remove($id, $this->entityManager, COMMENT_ENTITY_NAME);
-            $result = true;
-        }
-
-        return $result;
+        $objectExist = $this->commentRepository->getCommentById($id);
+        return $this->remove($id, $this->entityManager, COMMENT_ENTITY_NAME, $objectExist);
     }
 }

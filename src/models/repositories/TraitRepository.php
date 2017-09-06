@@ -17,6 +17,6 @@ trait TraitRepository
                                ->setParameter(1, $id);        
 
         $arrayResult = $query->getArrayResult();
-        return $arrayResult[0];
+        return current($arrayResult);
     }
 }
