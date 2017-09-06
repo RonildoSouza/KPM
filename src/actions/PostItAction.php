@@ -17,15 +17,15 @@ class PostItAction extends AbstractAction
 
     public function get($aQSP = [], $id = 0)
     {
-        $withComments = array_key_exists('withComments', $aQSP) ? $aQSP['withComments'] : false;
+        $withComments = array_key_exists(KEY_WITH_COMMENTS, $aQSP) ? $aQSP[KEY_WITH_COMMENTS] : false;
 
         if ($id === 0) {
             $postIts = $this->postItRepository->getPostIts($withComments);
-            return $postIts;
         } else {
-            $postIt = $this->postItRepository->getPostItById($id, $withComments);
-            return $postIt;
+            $postIts = $this->postItRepository->getPostItById($id, $withComments);
         }
+
+        return $this->objectIsNull($postIts);
     }
     
     public function postOrPut($jsonObj, $id = 0)
@@ -72,7 +72,7 @@ class PostItAction extends AbstractAction
     public function changeStatus($jsonObj, $id = 0)
     {
         if (!isset($id) || $id === 0) {
-            throw new \Exception('Post-it id not valid!');
+            throw new \Exception(MSG_POSTIT_NOT_VALID);
         }
 
         $status = $this->entityManager->find(STATUS_ENTITY_NAME, (int)$jsonObj['status_id']);
@@ -91,13 +91,7 @@ class PostItAction extends AbstractAction
 
     public function delete($id)
     {
-        $result = false;
-
-        if ($this->postItRepository->getPostItById($id)) {
-            $this->remove($id, $this->entityManager, POSTIT_ENTITY_NAME);
-            $result = true;
-        }
-
-        return $result;
+        $objectExist = $this->postItRepository->getPostItById($id);
+        return $this->remove($id, $this->entityManager, POSTIT_ENTITY_NAME, $objectExist);
     }
 }

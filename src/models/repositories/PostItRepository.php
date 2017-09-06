@@ -9,8 +9,8 @@ class PostItRepository extends EntityRepository
     
     public function getPostIts($withComments = false)
     {
-        $slcCMTs = $withComments ? ", cm" : "";
-        $joinCMTs = $withComments ? " LEFT JOIN p.comments cm" : "";
+        $slcCMTs = $withComments ? ", cm, partial us.{id, name}" : "";
+        $joinCMTs = $withComments ? " LEFT JOIN p.comments cm LEFT JOIN cm.user us" : "";
 
         $dql = "SELECT p, up, partial u.{id, name}, s, pr, pj, c" . $slcCMTs . " FROM " . POSTIT_ENTITY_NAME 
             . " p LEFT JOIN p.userPostIts up LEFT JOIN up.user u"
@@ -23,8 +23,8 @@ class PostItRepository extends EntityRepository
 
     public function getPostItById($id, $withComments = false)
     {
-        $slcCMTs = $withComments ? ", cm" : "";
-        $joinCMTs = $withComments ? " LEFT JOIN p.comments cm" : "";
+        $slcCMTs = $withComments ? ", cm, partial us.{id, name}" : "";
+        $joinCMTs = $withComments ? " LEFT JOIN p.comments cm LEFT JOIN cm.user us" : "";
 
         $dql = "SELECT p, up, partial u.{id, name}, s, pr, pj, c" . $slcCMTs . " FROM " . POSTIT_ENTITY_NAME 
             . " p LEFT JOIN p.userPostIts up LEFT JOIN up.user u"
