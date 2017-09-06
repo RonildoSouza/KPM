@@ -30,37 +30,63 @@ class PostItAction extends AbstractAction
     
     public function postOrPut($jsonObj, $id = 0)
     {
-        $postIt = new \KPM\Entities\PostIt();               
+        $postIt = new \KPM\Entities\PostIt();
 
         if ($id !== 0) {
             $postIt = $this->entityManager->find(POSTIT_ENTITY_NAME, $id);
+            $postIt->setUpdatedAt(new \DateTime('now'));
+
+            foreach ($jsonObj['remove_users_id'] as $userId) {
+                $user = $priority = $this->entityManager->find(USER_ENTITY_NAME, $userId);
+                $postIt->removeUserPostIt($user);
+            }
+        } else {
+            $user = $priority = $this->entityManager->find(USER_ENTITY_NAME, (int)$jsonObj['user_owner_id']);
+            $postIt->setUserPostIt($user, true);
+
+            $status = $priority = $this->entityManager->find(STATUS_ENTITY_NAME, (int)$jsonObj['status_id']);
+            $postIt->setStatus($status);
+
+            $postIt->setCreatedAt(new \DateTime('now'));
         }
 
-        foreach ($jsonObj['permissions'] as $p) {
-            $permission = $this->entityManager->find(PERMISSION_ENTITY_NAME, (int)$p['id']);            
-            $postIt->addGroupPermission($permission, (bool)$p['isAllowed']);
-        }
+        $postIt->setTitle($jsonObj['title']);
+        $postIt->setSummary($jsonObj['summary']);
+        $postIt->setEstimatedTime((int)$jsonObj['estimatedTime']);
 
-        $postIt->setName($jsonObj['name']);
+        $priority = $this->entityManager->find(PRIORITY_ENTITY_NAME, (int)$jsonObj['priority_id']);
+        $postIt->setPriority($priority);
 
-        // \Doctrine\Common\Util\Debug::dump($postIt);
+        $project = $this->entityManager->find(PROJECT_ENTITY_NAME, (int)$jsonObj['project_id']);
+        $postIt->setProject($project);
+
+        $category = $this->entityManager->find(CATEGORY_ENTITY_NAME, (int)$jsonObj['category_id']);
+        $postIt->setCategory($category);
     
         $this->entityManager->persist($postIt);
         $this->entityManager->flush();
 
         return $this->postItRepository->getPostItById($postIt->getId());
+    }
 
-        // {
-        //     "title": "New Post-it",
-        //     "summary": "Eiusmod ad Lorem voluptate veniam officia esse commodo excepteur amet tempor deserunt.",
-        //     "estimatedTime": 240,
-        //     "user_owner_id": 1
+    public function changeStatus($jsonObj, $id = 0)
+    {
+        if (!isset($id) || $id === 0) {
+            throw new \Exception('Post-it id not valid!');
+        }
 
-        //     "remove_users_id": [
-        //         2,
-        //         3
-        //       ]
-        // }
+        $status = $this->entityManager->find(STATUS_ENTITY_NAME, (int)$jsonObj['status_id']);
+        $user = $this->entityManager->find(USER_ENTITY_NAME, (int)$jsonObj['user_id']);
+
+        $postIt = $this->entityManager->find(POSTIT_ENTITY_NAME, $id);
+        $postIt->setUserPostIt($user);
+        $postIt->setUpdatedAt(new \DateTime('now'));
+        $postIt->setStatus($status);
+    
+        $this->entityManager->persist($postIt);
+        $this->entityManager->flush();
+
+        return $this->postItRepository->getPostItById($postIt->getId());
     }
 
     public function delete($id)

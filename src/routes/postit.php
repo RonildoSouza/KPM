@@ -8,4 +8,6 @@ $app->post('/kpm/v1/post-its', 'KPM\Controllers\PostItController:insertOrUpdate'
 
 $app->put('/kpm/v1/post-its/{id}', 'KPM\Controllers\PostItController:insertOrUpdate');
 
+$app->put('/kpm/v1/post-its/{id}/change-status', 'KPM\Controllers\PostItController:modifyStatus');
+
 $app->delete('/kpm/v1/post-its/{id}', 'KPM\Controllers\PostItController:delete');

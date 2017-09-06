@@ -55,7 +55,7 @@ class UserPostIt
 
     public function setUser(User $user)
     {
-        $user->addUserPostIt($this);
+        // $user->addUserPostIt($this);
         $this->user = $user;
     }
     

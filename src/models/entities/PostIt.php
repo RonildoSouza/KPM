@@ -134,16 +134,46 @@ class PostIt
     }
 
     /**
-     * @OneToMany(targetEntity="UserPostIt", mappedBy="postIt")
+     * @OneToMany(targetEntity="UserPostIt", mappedBy="postIt", cascade={"persist", "remove", "refresh"}, orphanRemoval=true)
      *
      * @var UserPostIt[] An ArrayCollection of UserPostIt objects.
      **/
-    protected $userPostIts;
+    protected $userPostIts = [];
      
     public function addUserPostIt(UserPostIt $userPostIt)
     {
         $this->userPostIts[] = $userPostIt;
     }
+
+    public function setUserPostIt(User $user, $isOwner = false)
+    {
+        foreach ($this->userPostIts as $up) {
+            if ($up->getUser()->getId() === $user->getId()) {
+                return;
+            }
+        }
+
+        $userPostIt = new \KPM\Entities\UserPostIt();
+        $userPostIt->setUser($user);
+        $userPostIt->setIsOwner($isOwner);
+        $userPostIt->setPostIt($this);
+
+        $this->userPostIts->add($userPostIt);
+    }
+
+    public function removeUserPostIt(User $user)
+    {
+        foreach ($this->userPostIts as $up) {
+            if ($up->getUser()->getId() === $user->getId() && !$up->getIsOwner()) {
+                $this->userPostIts->removeElement($up);
+            }
+        }
+    }
+
+    // public function getUserPostIts()
+    // {
+    //     return $this->userPostIts;
+    // }
 
     /**
      * @OneToMany(targetEntity="Comment", mappedBy="postIt")
