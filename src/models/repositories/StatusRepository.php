@@ -11,8 +11,10 @@ class StatusRepository extends EntityRepository
     
     public function getStatus($withPostIts = false)
     {
-        $slcWPTs = $withPostIts ? ", pt" : "";
-        $joinWPTs = $withPostIts ? " LEFT JOIN s.postIts pt" : "";
+        $slcWPTs = $withPostIts ? ", pt, up, partial u.{id, name}, pr, pj, c" : "";
+        $joinWPTs = $withPostIts ? " LEFT JOIN s.postIts pt LEFT JOIN pt.userPostIts up"
+        . " LEFT JOIN up.user u LEFT JOIN pt.priority pr"
+        . " LEFT JOIN pt.project pj LEFT JOIN pt.category c" : "";
 
         $dql = sprintf($this->strFormat, $slcWPTs, STATUS_ENTITY_NAME, $joinWPTs, "ORDER BY s.name");
 
@@ -21,8 +23,10 @@ class StatusRepository extends EntityRepository
 
     public function getStatusById($id, $withPostIts = false)
     {
-        $slcWPTs = $withPostIts ? ", pt" : "";
-        $joinWPTs = $withPostIts ? " LEFT JOIN s.postIts pt" : "";
+        $slcWPTs = $withPostIts ? ", pt, up, partial u.{id, name}, pr, pj, c" : "";
+        $joinWPTs = $withPostIts ? " LEFT JOIN s.postIts pt LEFT JOIN pt.userPostIts up"
+        . " LEFT JOIN up.user u LEFT JOIN pt.priority pr"
+        . " LEFT JOIN pt.project pj LEFT JOIN pt.category c" : "";
 
         $dql = sprintf($this->strFormat, $slcWPTs, STATUS_ENTITY_NAME, $joinWPTs, "WHERE s.id = ?1");
 
