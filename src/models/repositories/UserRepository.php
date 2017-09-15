@@ -7,31 +7,38 @@ class UserRepository extends EntityRepository
 {
     use TraitRepository;
 
+    private $slcWPTs = "";
+    private $joinWPTs = "";
+    private $slcCMTs = "";
+    private $joinCMTs = "";
     private $strFormat = "SELECT u, ug %s %s FROM %s u LEFT JOIN u.userGroup ug %s %s %s";
     
     public function getUsers($withPostIts = false, $withComments = false)
     {
-        $slcWPTs = $withPostIts ? ", upt, pt" : "";
-        $joinWPTs = $withPostIts ? " LEFT JOIN u.userPostIts upt LEFT JOIN upt.postIt pt" : "";
-
-        $slcCMTs = $withComments ? ", c" : "";
-        $joinCMTs = $withComments ? " LEFT JOIN u.comments c" : "";
+        $this->setJoins($withPostIts, $withComments);
         
-        $dql = sprintf($this->strFormat, $slcWPTs, $slcCMTs, USER_ENTITY_NAME, $joinWPTs, $joinCMTs, "ORDER BY u.name");
+        $dql = sprintf($this->strFormat, $this->slcWPTs, $this->slcCMTs, USER_ENTITY_NAME, 
+                        $this->joinWPTs, $this->joinCMTs, "ORDER BY u.name");
 
         return $this->getAll($dql, $this->getEntityManager());
     }
 
     public function getUserById($id, $withPostIts = false, $withComments = false)
     {
-        $slcWPTs = $withPostIts ? ", upt, pt" : "";
-        $joinWPTs = $withPostIts ? " LEFT JOIN u.userPostIts upt LEFT JOIN upt.postIt pt" : "";
+        $this->setJoins($withPostIts, $withComments);
 
-        $slcCMTs = $withComments ? ", c" : "";
-        $joinCMTs = $withComments ? " LEFT JOIN u.comments c" : "";
-
-        $dql = sprintf($this->strFormat, $slcWPTs, $slcCMTs, USER_ENTITY_NAME, $joinWPTs, $joinCMTs, " WHERE u.id = ?1");
+        $dql = sprintf($this->strFormat, $this->slcWPTs, $this->slcCMTs, USER_ENTITY_NAME, 
+                        $this->joinWPTs, $this->joinCMTs, " WHERE u.id = ?1");
 
         return $this->getById($dql, $this->getEntityManager(), $id);
+    }
+
+    private function setJoins($withPostIts, $withComments)
+    {
+        $this->slcWPTs = $withPostIts ? ", upt, pt" : "";
+        $this->joinWPTs = $withPostIts ? " LEFT JOIN u.userPostIts upt LEFT JOIN upt.postIt pt" : "";
+
+        $this->slcCMTs = $withComments ? ", c" : "";
+        $this->joinCMTs = $withComments ? " LEFT JOIN u.comments c" : "";
     }
 }
