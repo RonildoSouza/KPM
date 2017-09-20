@@ -52,7 +52,7 @@ class PostItAction extends AbstractAction
 
         $postIt->setTitle($jsonObj['title']);
         $postIt->setSummary($jsonObj['summary']);
-        $postIt->setEstimatedTime((int)$jsonObj['estimatedTime']);
+        $postIt->setEstimatedTime((int)$jsonObj['estimated_time']);
 
         $priority = $this->entityManager->find(PRIORITY_ENTITY_NAME, (int)$jsonObj['priority_id']);
         $postIt->setPriority($priority);

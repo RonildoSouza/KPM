@@ -39,7 +39,7 @@ class StatusAction extends AbstractAction
         $status->setName($jsonObj['name']);
         $status->setColor($jsonObj['color']);
         $status->setIcon($jsonObj['icon']);
-        $status->setDisplayOrder((int)$jsonObj['displayOrder']);
+        $status->setDisplayOrder((int)$jsonObj['display_order']);
     
         $this->entityManager->persist($status);
         $this->entityManager->flush();
