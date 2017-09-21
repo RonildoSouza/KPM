@@ -45,7 +45,7 @@ class UserGroupAction extends AbstractAction
             if ($groupPermissions) {
                 foreach ($groupPermissions as $gp) {
                     if ($gp->getPermission()->getId() === $permission->getId()) {
-                        $gp->setIsAllowed((bool)$p['isAllowed']);
+                        $gp->setIsAllowed((bool)$p['is_allowed']);
                         $permissionExist = true;
                         break;
                     }
@@ -53,7 +53,7 @@ class UserGroupAction extends AbstractAction
             }
 
             if (!$permissionExist) {
-                $userGroup->addGroupPermission($permission, (bool)$p['isAllowed']);
+                $userGroup->addGroupPermission($permission, (bool)$p['is_allowed']);
             }
         }
 
