@@ -30,10 +30,7 @@ abstract class AbstractController
             $objects = $this->abstractAction->get($this->aQSP);
 
             return $response->withJSON($objects, 200)
-                ->withHeader('Content-type', 'application/json')
-                ->withHeader('Access-Control-Allow-Origin', '*')
-                ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+                ->withHeader('Content-type', 'application/json');
         } catch (\Exception $ex) {
             return $response->withStatus(400, $ex->getMessage());
         }
@@ -47,10 +44,7 @@ abstract class AbstractController
             $object = $this->abstractAction->get($this->aQSP, $args['id']);
 
             return $response->withJSON($object, 200)
-                ->withHeader('Content-type', 'application/json')
-                ->withHeader('Access-Control-Allow-Origin', '*')
-                ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+                ->withHeader('Content-type', 'application/json');
         } catch (\Exception $ex) {
             return $response->withStatus(400, $ex->getMessage());
         }
@@ -65,10 +59,7 @@ abstract class AbstractController
 
             $statusCode = $request->isPost() ? 201 : 200;
             return $response->withJSON($object, $statusCode)
-                ->withHeader('Content-type', 'application/json')
-                ->withHeader('Access-Control-Allow-Origin', '*')
-                ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+                ->withHeader('Content-type', 'application/json');
         } catch (\Exception $ex) {
             return $response->withStatus(400, $ex->getMessage());
         }
@@ -80,10 +71,7 @@ abstract class AbstractController
             $result = $this->abstractAction->delete((int)$args['id']);
 
             $statusCode = $result ? 200 : 204;
-            return $response->withStatus($statusCode)
-                ->withHeader('Access-Control-Allow-Origin', '*')
-                ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+            return $response->withStatus($statusCode);
         } catch (\Exception $ex) {
             return $response->withStatus(400, $ex->getMessage());
         }
