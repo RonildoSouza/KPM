@@ -32,6 +32,6 @@ class PriorityRepository extends EntityRepository
     private function setJoins($withPostIts)
     {
         $this->slcWPTs = $withPostIts ? ", pt" : "";
-        $this->joinWPTs = $withPostIts ? " LEFT JOIN p.postIts pt" : "";
+        $this->joinWPTs = $withPostIts ? " LEFT JOIN p.post_its pt" : "";
     }
 }

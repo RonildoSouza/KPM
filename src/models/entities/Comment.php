@@ -24,12 +24,12 @@ class Comment
     protected $text;
 
     /**
-     * @ManyToOne(targetEntity="PostIt", inversedBy="userPostIts")
-     * @JoinColumn(name="postIt_id", referencedColumnName="id", nullable=false)
+     * @ManyToOne(targetEntity="PostIt", inversedBy="user_post_its")
+     * @JoinColumn(name="post_it_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\PostIt
      */
-    protected $postIt;
+    protected $post_it;
 
     /**
      * @ManyToOne(targetEntity="User", inversedBy="comments")
@@ -44,14 +44,14 @@ class Comment
      *
      * @var DateTime
      */
-    protected $createdAt;
+    protected $created_at;
 
     /**
      * @Column(type="datetime", nullable=true)
      *
      * @var DateTime
      */
-    protected $updatedAt;
+    protected $updated_at;
 
 
     // ************************************************************
@@ -74,13 +74,13 @@ class Comment
 
     public function getPostIt()
     {
-        return $this->postIt;
+        return $this->post_it;
     }
 
-    public function setPostIt(PostIt $postIt)
+    public function setPostIt(PostIt $post_it)
     {
-        $postIt->addComment($this);
-        $this->postIt = $postIt;
+        $post_it->addComment($this);
+        $this->post_it = $post_it;
     }
 
     public function getUser()
@@ -96,21 +96,21 @@ class Comment
 
     public function getCreatedAt()
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt($created_at)
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $created_at;
     }
 
     public function getUpdatedAt()
     {
-        return $this->updatedAt;
+        return $this->updated_at;
     }
 
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt($updated_at)
     {
-        $this->updatedAt = $updatedAt;
+        $this->updated_at = $updated_at;
     }
 }

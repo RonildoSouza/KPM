@@ -32,6 +32,6 @@ class CategoryPostItRepository extends EntityRepository
     private function setJoins($withPostIts)
     {
         $this->slcWPTs = $withPostIts ? ", pt" : "";
-        $this->joinWPTs = $withPostIts ? " LEFT JOIN c.postIts pt" : "";
+        $this->joinWPTs = $withPostIts ? " LEFT JOIN c.post_its pt" : "";
     }
 }

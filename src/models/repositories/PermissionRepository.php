@@ -7,7 +7,7 @@ class PermissionRepository extends EntityRepository
 {
     use TraitRepository;
 
-    private $strFormat = "SELECT p, g, ug FROM %s p LEFT JOIN p.groupPermissions g LEFT JOIN g.userGroup ug %s";
+    private $strFormat = "SELECT p, g, ug FROM %s p LEFT JOIN p.group_permissions g LEFT JOIN g.user_group ug %s";
     // private $strFormat = "SELECT p FROM %s p %s";
 
     public function getPermissions()

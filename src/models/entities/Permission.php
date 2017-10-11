@@ -30,21 +30,21 @@ class Permission
     // RELATIONSHIP
 
     /**
-     * @OneToMany(targetEntity="GroupPermission", mappedBy="userGroup", cascade={"persist", "remove", "refresh"})
+     * @OneToMany(targetEntity="GroupPermission", mappedBy="user_group", cascade={"persist", "remove", "refresh"})
      *
      * @var GroupPermission[] An ArrayCollection of GroupPermission objects.
      **/
-    protected $groupPermissions;
+    protected $group_permissions;
      
     public function addGroupPermission(GroupPermission $groupPermission)
     {
-        $this->groupPermissions[] = $groupPermission;
+        $this->group_permissions[] = $groupPermission;
     }
      
      
     public function __construct()
     {
-        $this->groupPermissions = new ArrayCollection();
+        $this->group_permissions = new ArrayCollection();
     }
 
 

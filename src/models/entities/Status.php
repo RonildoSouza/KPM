@@ -44,7 +44,7 @@ class Status
      *
      * @var int
      */
-    protected $displayOrder;
+    protected $display_order;
     
 
     // ************************************************************
@@ -55,17 +55,17 @@ class Status
      *
      * @var PostIt[] An ArrayCollection of PostIt objects.
      **/
-    protected $postIts;
+    protected $post_its;
 
     public function addPostIt(PostIt $postIt)
     {
-        $this->postIts[] = $postIt;
+        $this->post_its[] = $postIt;
     }
 
 
     public function __construct()
     {
-        $this->postIts = new ArrayCollection();
+        $this->post_its = new ArrayCollection();
     }
     
 
@@ -109,11 +109,11 @@ class Status
 
     public function getDisplayOrder()
     {
-        return $this->displayOrder;
+        return $this->display_order;
     }
 
-    public function setDisplayOrder($displayOrder)
+    public function setDisplayOrder($display_order)
     {
-        $this->displayOrder = $displayOrder;
+        $this->display_order = $display_order;
     }
 }

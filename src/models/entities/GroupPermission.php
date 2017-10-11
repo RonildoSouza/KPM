@@ -17,7 +17,7 @@ class GroupPermission
     protected $id;
 
     /**
-     * @ManyToOne(targetEntity="Permission", inversedBy="groupPermissions")
+     * @ManyToOne(targetEntity="Permission", inversedBy="group_permissions")
      * @JoinColumn(name="permission_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\Permission
@@ -25,19 +25,19 @@ class GroupPermission
     protected $permission;
 
     /**
-     * @ManyToOne(targetEntity="UserGroup", inversedBy="groupPermissions")
-     * @JoinColumn(name="userGroup_id", referencedColumnName="id", nullable=false)
+     * @ManyToOne(targetEntity="UserGroup", inversedBy="group_permissions")
+     * @JoinColumn(name="user_group_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\UserGroup
      */
-    protected $userGroup;
+    protected $user_group;
 
     /**
      * @Column(type="boolean", nullable=false, options={"default":false})
      *
      * @var boolean
      */
-    protected $isAllowed;
+    protected $is_allowed;
 
 
     // ************************************************************
@@ -61,22 +61,22 @@ class GroupPermission
     
     public function getUserGroup()
     {
-        return $this->userGroup;
+        return $this->user_group;
     }
 
-    public function setUserGroup(UserGroup $userGroup)
+    public function setUserGroup(UserGroup $user_group)
     {
         // $userGroup->addGroupPermission($this);
-        $this->userGroup = $userGroup;
+        $this->user_group = $user_group;
     }
 
     public function getIsAllowed()
     {
-        return $this->isAllowed;
+        return $this->is_allowed;
     }
 
-    public function setIsAllowed($isAllowed)
+    public function setIsAllowed($is_allowed)
     {
-        $this->isAllowed = $isAllowed;
+        $this->is_allowed = $is_allowed;
     }
 }

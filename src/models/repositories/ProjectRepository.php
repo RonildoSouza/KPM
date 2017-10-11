@@ -36,7 +36,7 @@ class ProjectRepository extends EntityRepository
     private function setJoins($withPostIts, $withCategories)
     {
         $this->slcWPTs = $withPostIts ? ", pt" : "";
-        $this->joinWPTs = $withPostIts ? " LEFT JOIN p.postIts pt" : "";
+        $this->joinWPTs = $withPostIts ? " LEFT JOIN p.post_its pt" : "";
 
         $this->slcCATs = $withCategories ? ", c" : "";
         $this->joinCATs = $withCategories ? " LEFT JOIN p.categories c" : "";

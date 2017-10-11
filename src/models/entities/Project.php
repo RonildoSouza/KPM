@@ -44,14 +44,14 @@ class Project
      *
      * @var DateTime
      */
-    protected $startDate;
+    protected $start_date;
 
     /**
      * @Column(type="datetime", nullable=false)
      *
      * @var DateTime
      */
-    protected $endDate;
+    protected $end_date;
 
     /**
      * @Column(type="integer", nullable=false, options={"unsigned":true, "default":10})
@@ -69,11 +69,11 @@ class Project
      *
      * @var PostIt[] An ArrayCollection of PostIt objects.
      **/
-    protected $postIts;
+    protected $post_its;
          
     public function addPostIt(PostIt $postIt)
     {
-        $this->postIts[] = $postIt;
+        $this->post_its[] = $postIt;
     }
 
     /**
@@ -96,7 +96,7 @@ class Project
 
     public function __construct()
     {
-        $this->postIts = new ArrayCollection();
+        $this->post_its = new ArrayCollection();
     }
 
      
@@ -140,22 +140,22 @@ class Project
 
     public function getStartDate()
     {
-        return $this->startDate;
+        return $this->start_date;
     }
 
-    public function setStartDate($startDate)
+    public function setStartDate($start_date)
     {
-        $this->startDate = $startDate;
+        $this->start_date = $start_date;
     }
 
     public function getEndDate()
     {
-        return $this->endDate;
+        return $this->end_date;
     }
 
-    public function setEndDate($endDate)
+    public function setEndDate($end_date)
     {
-        $this->endDate = $endDate;
+        $this->end_date = $end_date;
     }
 
     public function getStatus()

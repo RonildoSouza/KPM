@@ -37,28 +37,28 @@ class PostIt
      *
      * @var int
      */
-    protected $estimatedTime;
+    protected $estimated_time;
 
     /**
      * @Column(type="datetime", nullable=false)
      *
      * @var DateTime
      */
-    protected $createdAt;
+    protected $created_at;
     
     /**
      * @Column(type="datetime", nullable=true)
      *
      * @var DateTime
      */
-    protected $updatedAt;
+    protected $updated_at;
 
 
     // ************************************************************
     // RELATIONSHIP
 
     /**
-     * @ManyToOne(targetEntity="Status", inversedBy="postIts")
+     * @ManyToOne(targetEntity="Status", inversedBy="post_its")
      * @JoinColumn(name="status_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\Status
@@ -77,7 +77,7 @@ class PostIt
     }
 
     /**
-     * @ManyToOne(targetEntity="Priority", inversedBy="postIts")
+     * @ManyToOne(targetEntity="Priority", inversedBy="post_its")
      * @JoinColumn(name="priority_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\Priority
@@ -96,7 +96,7 @@ class PostIt
     }
 
     /**
-     * @ManyToOne(targetEntity="Project", inversedBy="postIts")
+     * @ManyToOne(targetEntity="Project", inversedBy="post_its")
      * @JoinColumn(name="project_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\Project
@@ -115,7 +115,7 @@ class PostIt
     }
 
     /**
-     * @ManyToOne(targetEntity="CategoryPostIt", inversedBy="postIts")
+     * @ManyToOne(targetEntity="CategoryPostIt", inversedBy="post_its")
      * @JoinColumn(name="category_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\CategoryPostIt
@@ -134,20 +134,20 @@ class PostIt
     }
 
     /**
-     * @OneToMany(targetEntity="UserPostIt", mappedBy="postIt", cascade={"persist", "remove", "refresh"}, orphanRemoval=true)
+     * @OneToMany(targetEntity="UserPostIt", mappedBy="post_it", cascade={"persist", "remove", "refresh"}, orphanRemoval=true)
      *
      * @var UserPostIt[] An ArrayCollection of UserPostIt objects.
      **/
-    protected $userPostIts = [];
+    protected $user_post_its = [];
      
     public function addUserPostIt(UserPostIt $userPostIt)
     {
-        $this->userPostIts[] = $userPostIt;
+        $this->user_post_its[] = $userPostIt;
     }
 
     public function setUserPostIt(User $user, $isOwner = false)
     {
-        foreach ($this->userPostIts as $up) {
+        foreach ($this->user_post_its as $up) {
             if ($up->getUser()->getId() === $user->getId()) {
                 return;
             }
@@ -158,25 +158,25 @@ class PostIt
         $userPostIt->setIsOwner($isOwner);
         $userPostIt->setPostIt($this);
 
-        $this->userPostIts->add($userPostIt);
+        $this->user_post_its->add($userPostIt);
     }
 
     public function removeUserPostIt(User $user)
     {
-        foreach ($this->userPostIts as $up) {
+        foreach ($this->user_post_its as $up) {
             if ($up->getUser()->getId() === $user->getId() && !$up->getIsOwner()) {
-                $this->userPostIts->removeElement($up);
+                $this->user_post_its->removeElement($up);
             }
         }
     }
 
-    // public function getUserPostIts()
+    // public function getuser_post_its()
     // {
-    //     return $this->userPostIts;
+    //     return $this->user_post_its;
     // }
 
     /**
-     * @OneToMany(targetEntity="Comment", mappedBy="postIt")
+     * @OneToMany(targetEntity="Comment", mappedBy="post_it")
      *
      * @var Comment[] An ArrayCollection of Comment objects.
      **/
@@ -192,22 +192,22 @@ class PostIt
      *
      * @var KPM\Entities\PostIt[]
      **/
-    protected $postIts = null;
+    protected $post_its = null;
      
     public function linkPostIt(PostIt $postIt)
     {
-        $this->postIts[] = $postIt;
+        $this->post_its[] = $postIt;
     }
  
     public function getPostIts()
     {
-        return $this->postIts;
+        return $this->post_its;
     }
     
 
     public function __construct()
     {
-        $this->userPostIts = new ArrayCollection();
+        $this->user_post_its = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
 
@@ -242,31 +242,31 @@ class PostIt
 
     public function getEstimatedTime()
     {
-        return $this->estimatedTime;
+        return $this->estimated_time;
     }
 
-    public function setEstimatedTime($estimatedTime)
+    public function setEstimatedTime($estimated_time)
     {
-        $this->estimatedTime = $estimatedTime;
+        $this->estimated_time = $estimated_time;
     }
 
     public function getCreatedAt()
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt($created_at)
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $created_at;
     }
 
     public function getUpdatedAt()
     {
-        return $this->updatedAt;
+        return $this->updated_at;
     }
 
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt($updated_at)
     {
-        $this->updatedAt = $updatedAt;
+        $this->updated_at = $updated_at;
     }
 }

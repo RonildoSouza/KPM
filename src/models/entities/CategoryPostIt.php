@@ -41,17 +41,17 @@ class CategoryPostIt
      *
      * @var PostIt[] An ArrayCollection of PostIt objects.
      **/
-    protected $postIts;
+    protected $post_its;
      
     public function addPostIt(PostIt $postIt)
     {
-        $this->postIts[] = $postIt;
+        $this->post_its[] = $postIt;
     }
 
 
     public function __construct()
     {
-        $this->postIts = new ArrayCollection();
+        $this->post_its = new ArrayCollection();
     }
     
      

@@ -11,7 +11,7 @@ class UserRepository extends EntityRepository
     private $joinWPTs = "";
     private $slcCMTs = "";
     private $joinCMTs = "";
-    private $strFormat = "SELECT u, ug %s %s FROM %s u LEFT JOIN u.userGroup ug %s %s %s";
+    private $strFormat = "SELECT u, ug %s %s FROM %s u LEFT JOIN u.user_group ug %s %s %s";
     
     public function getUsers($withPostIts = false, $withComments = false)
     {
@@ -36,7 +36,7 @@ class UserRepository extends EntityRepository
     private function setJoins($withPostIts, $withComments)
     {
         $this->slcWPTs = $withPostIts ? ", upt, pt" : "";
-        $this->joinWPTs = $withPostIts ? " LEFT JOIN u.userPostIts upt LEFT JOIN upt.postIt pt" : "";
+        $this->joinWPTs = $withPostIts ? " LEFT JOIN u.user_post_its upt LEFT JOIN upt.post_it pt" : "";
 
         $this->slcCMTs = $withComments ? ", c" : "";
         $this->joinCMTs = $withComments ? " LEFT JOIN u.comments c" : "";

@@ -48,11 +48,11 @@ class User
      *
      * @var UserPostIt[] An ArrayCollection of UserPostIt objects.
      **/
-    protected $userPostIts;
+    protected $user_post_its;
      
     public function addUserPostIt(UserPostIt $userPostIt)
     {
-        $this->userPostIts[] = $userPostIt;
+        $this->user_post_its[] = $userPostIt;
     }
 
     /**
@@ -69,27 +69,27 @@ class User
 
     /**
      * @ManyToOne(targetEntity="UserGroup", inversedBy="users")
-     * @JoinColumn(name="userGroup_id", referencedColumnName="id", nullable=false)
+     * @JoinColumn(name="user_group_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\UserGroup
      **/
-    protected $userGroup;
+    protected $user_group;
      
     public function getUserGroup()
     {
-        return $this->userGroup;
+        return $this->user_group;
     }
  
-    public function setUserGroup(UserGroup $userGroup)
+    public function setUserGroup(UserGroup $user_group)
     {
-        $userGroup->addUser($this);
-        $this->userGroup = $userGroup;
+        $user_group->addUser($this);
+        $this->user_group = $user_group;
     }
      
      
     public function __construct()
     {
-        $this->userPostIts = new ArrayCollection();
+        $this->user_post_its = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
          

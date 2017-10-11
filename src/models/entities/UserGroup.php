@@ -30,7 +30,7 @@ class UserGroup
     // RELATIONSHIP
 
     /**
-     * @OneToMany(targetEntity="User", mappedBy="userGroup")
+     * @OneToMany(targetEntity="User", mappedBy="user_group")
      *
      * @var User[] An ArrayCollection of User objects.
      **/
@@ -42,15 +42,15 @@ class UserGroup
     }
 
     /**
-     * @OneToMany(targetEntity="GroupPermission", mappedBy="userGroup", cascade={"persist", "remove", "refresh"}, orphanRemoval=true)
+     * @OneToMany(targetEntity="GroupPermission", mappedBy="user_group", cascade={"persist", "remove", "refresh"}, orphanRemoval=true)
      *
      * @var GroupPermission[] An ArrayCollection of GroupPermission objects.
      **/
-    protected $groupPermissions = [];
+    protected $group_permissions = [];
      
     // public function addGroupPermission(GroupPermission $groupPermission)
     // {
-    //     $this->groupPermissions[] = $groupPermission;
+    //     $this->group_permissions[] = $groupPermission;
     // }
 
     public function addGroupPermission(Permission $permission, $isAllowed)
@@ -60,19 +60,19 @@ class UserGroup
         $groupPermission->setIsAllowed($isAllowed);
         $groupPermission->setUserGroup($this);
 
-        $this->groupPermissions->add($groupPermission);
+        $this->group_permissions->add($groupPermission);
     }
 
     public function getGroupPermissions()
     {
-        return $this->groupPermissions;
+        return $this->group_permissions;
     }
 
      
     public function __construct()
     {
         $this->users = new ArrayCollection();
-        $this->groupPermissions = new ArrayCollection();
+        $this->group_permissions = new ArrayCollection();
     }
 
 

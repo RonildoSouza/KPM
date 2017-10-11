@@ -32,7 +32,7 @@ class UserAction extends AbstractAction
     public function postOrPut($jsonObj, $id = 0)
     {
         $user = new \KPM\Entities\User();
-        $userGroup = $this->entityManager->find(USERGROUP_ENTITY_NAME, (int)$jsonObj['usergroup_id']);
+        $userGroup = $this->entityManager->find(USERGROUP_ENTITY_NAME, (int)$jsonObj['user_group_id']);
 
         if ($id !== 0) {
             $user = $this->entityManager->find(USER_ENTITY_NAME, $id);

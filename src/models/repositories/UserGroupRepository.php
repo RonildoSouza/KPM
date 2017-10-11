@@ -9,7 +9,7 @@ class UserGroupRepository extends EntityRepository
 
     private $slcWURs = "";
     private $joinWURs = "";
-    private $strFormat = "SELECT ug, gp, p %s FROM %s ug LEFT JOIN ug.groupPermissions gp LEFT JOIN gp.permission p %s %s";
+    private $strFormat = "SELECT ug, gp, p %s FROM %s ug LEFT JOIN ug.group_permissions gp LEFT JOIN gp.permission p %s %s";
     
     public function getUserGroups($withUsers = false)
     {

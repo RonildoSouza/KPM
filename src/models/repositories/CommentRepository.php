@@ -7,7 +7,7 @@ class CommentRepository extends EntityRepository
 {
     use TraitRepository;
 
-    private $strFormat = "SELECT c, p, partial u.{id, name} FROM %s c JOIN c.postIt p JOIN c.user u %s";
+    private $strFormat = "SELECT c, p, partial u.{id, name} FROM %s c JOIN c.post_it p JOIN c.user u %s";
     
     public function getComments()
     {

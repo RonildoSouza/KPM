@@ -17,7 +17,7 @@ class UserPostIt
     protected $id;
 
     /**
-     * @ManyToOne(targetEntity="User", inversedBy="userPostIts")
+     * @ManyToOne(targetEntity="User", inversedBy="user_post_its")
      * @JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\User
@@ -25,19 +25,19 @@ class UserPostIt
     protected $user;
 
     /**
-     * @ManyToOne(targetEntity="PostIt", inversedBy="userPostIts")
-     * @JoinColumn(name="postIt_id", referencedColumnName="id", nullable=false)
+     * @ManyToOne(targetEntity="PostIt", inversedBy="user_post_its")
+     * @JoinColumn(name="post_it_id", referencedColumnName="id", nullable=false)
      *
      * @var KPM\Entities\PostIt
      */
-    protected $postIt;
+    protected $post_it;
 
     /**
      * @Column(type="boolean", nullable=false, options={"default":false})
      *
      * @var boolean
      */
-    protected $isOwner;
+    protected $is_owner;
 
 
     // ************************************************************
@@ -61,22 +61,22 @@ class UserPostIt
     
     public function getPostIt()
     {
-        return $this->postIt;
+        return $this->post_it;
     }
 
-    public function setPostIt(PostIt $postIt)
+    public function setPostIt(PostIt $post_it)
     {
-        $postIt->addUserPostIt($this);
-        $this->postIt = $postIt;
+        $post_it->addUserPostIt($this);
+        $this->post_it = $post_it;
     }
 
     public function getIsOwner()
     {
-        return $this->isOwner;
+        return $this->is_owner;
     }
 
-    public function setIsOwner($isOwner)
+    public function setIsOwner($is_owner)
     {
-        $this->isOwner = $isOwner;
+        $this->is_owner = $is_owner;
     }
 }
