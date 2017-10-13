@@ -31,9 +31,9 @@ class StatusRepository extends EntityRepository
 
     private function setJoins($withPostIts)
     {
-        $this->slcWPTs = $withPostIts ? ", pt, up, partial u.{id, name}, pr, pj, c, cm" : "";
+        $this->slcWPTs = $withPostIts ? ", pt, up, partial u.{id, name}, pr, pj, c, cm, partial us.{id, name}" : "";
         $this->joinWPTs = $withPostIts ? " LEFT JOIN s.post_its pt LEFT JOIN pt.user_post_its up"
-        . " LEFT JOIN up.user u LEFT JOIN pt.priority pr LEFT JOIN pt.comments cm"
+        . " LEFT JOIN up.user u LEFT JOIN pt.priority pr LEFT JOIN pt.comments cm LEFT JOIN cm.user us"
         . " LEFT JOIN pt.project pj LEFT JOIN pt.category c" : "";
     }
 }
