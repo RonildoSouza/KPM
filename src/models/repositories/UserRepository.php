@@ -11,8 +11,9 @@ class UserRepository extends EntityRepository
     private $joinWPTs = "";
     private $slcCMTs = "";
     private $joinCMTs = "";
-    private $strFormat = "SELECT u, ug, gp, p %s %s FROM %s u LEFT JOIN u.user_group ug " .
-                        "LEFT JOIN ug.group_permissions gp LEFT JOIN gp.permission p %s %s %s";
+    private $strFormat = "SELECT u, ug %s %s FROM %s u LEFT JOIN u.user_group ug %s %s %s";
+    // private $strFormat = "SELECT u, ug, gp, p %s %s FROM %s u LEFT JOIN u.user_group ug " .
+    //                     "LEFT JOIN ug.group_permissions gp LEFT JOIN gp.permission p %s %s %s";
     
     public function getUsers($withPostIts = false, $withComments = false)
     {
