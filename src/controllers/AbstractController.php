@@ -82,19 +82,14 @@ abstract class AbstractController
         $aQueryString = $request->getQueryParams();
         
         if ($aQueryString) {
-            $resultWithPostIts = (array_key_exists(KEY_WITH_POSTITS, $aQueryString)
+            $withPostIts = (array_key_exists(KEY_WITH_POSTITS, $aQueryString)
                                     && strtolower($aQueryString[KEY_WITH_POSTITS]) === 'true');
-            $resultWithCategories = (array_key_exists(KEY_WITH_CATEGORIES, $aQueryString)
+            $withCategories = (array_key_exists(KEY_WITH_CATEGORIES, $aQueryString)
                                     && strtolower($aQueryString[KEY_WITH_CATEGORIES]) === 'true');
-            $resultWithComments = (array_key_exists(KEY_WITH_COMMENTS, $aQueryString)
+            $withComments = (array_key_exists(KEY_WITH_COMMENTS, $aQueryString)
                                     && strtolower($aQueryString[KEY_WITH_COMMENTS]) === 'true');
-            $resultWithUsers = (array_key_exists(KEY_WITH_USERS, $aQueryString)
+            $withUsers = (array_key_exists(KEY_WITH_USERS, $aQueryString)
                                     && strtolower($aQueryString[KEY_WITH_USERS]) === 'true');
-
-            $withPostIts = ($resultWithPostIts) ? true : false;
-            $withCategories = ($resultWithCategories) ? true : false;
-            $withComments = ($resultWithComments) ? true : false;
-            $withUsers = ($resultWithUsers) ? true : false;
 
             $this->aQSP = array(
                 KEY_WITH_POSTITS => $withPostIts,
