@@ -15,7 +15,7 @@ trait TraitAction
 
         // \Doctrine\Common\Util\Debug::dump($object);
 
-        return $object === null;
+        return ($object === null);
     }
 
     protected function objectIsNull($object)
