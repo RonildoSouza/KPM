@@ -1,7 +1,6 @@
 # KPM
 
 ## Routes
-####
 - categories/[{id}[?withPostIts=true]]
 - comments/{id}
 - permissions/[{id}]
