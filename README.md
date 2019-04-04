@@ -1,7 +1,7 @@
 # KPM
 
 ## Routes
-#### Base URL - http://byrns.esy.es/rest/KPM/public/kpm/v1/
+####
 - categories/[{id}[?withPostIts=true]]
 - comments/{id}
 - permissions/[{id}]
